@@ -1,0 +1,1976 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Enquetes Admin</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"
+        rel="stylesheet" />
+
+
+    <style>
+        /* .::: FONTS :::. */
+        @font-face {
+            font-family: 'Lato-Regular';
+            /* src: url('/SitePages/src/fonts/Lato/Lato-Regular.ttf'); */
+        }
+
+        @font-face {
+            font-family: 'Lato-Light';
+            /* src: url('/SitePages/src/fonts/Lato/Lato-Light.ttf'); */
+        }
+
+        @font-face {
+            font-family: 'Bree-Serif';
+            /* src: url('/SitePages/src/fonts/Bree_Serif/BreeSerif-Regular.ttf'); */
+        }
+
+        /* .::: HEADER :::. */
+        .news-page-header {
+            background-color: #0070b8;
+            height: 64px;
+            color: #fff;
+            font-size: 18px;
+            font-family: Lato-Regular;
+        }
+
+        .news-page-header p {
+            position: relative;
+            top: 21px;
+            left: 56px;
+            display: inline;
+            cursor: pointer;
+        }
+
+        .news-page-header a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .news-page-header img {
+            height: 14px;
+            margin-right: 8px;
+            margin-bottom: 4px;
+        }
+
+        /* .::: NAVIGATION :::. */
+        .nav-news {
+            font-size: 40px;
+            font-family: Lato-Light;
+            color: #b4b4be;
+            font-weight: 300;
+            text-decoration: none;
+        }
+
+        .nav-news:hover,
+        .nav-news:visited,
+        .nav-news:link {
+            text-decoration: none;
+            color: #b4b4be;
+        }
+
+        .nav-news-list {
+            margin-top: 64px;
+            width: 60%;
+            padding-left: 0;
+        }
+
+        .nav-news-list li:nth-child(1) {
+            width: 190px !important;
+        }
+
+        .nav-news-list li:nth-child(2) {
+            width: 400px !important;
+        }
+
+        li.active .nav-news {
+            color: #141428;
+        }
+
+        /* .::: TABLES :::. */
+        .custom-table-news {
+            width: 100%
+        }
+
+        .wrap-tables {
+            padding: 0 30px;
+        }
+
+
+        .custom-table-news thead {
+            font-size: 16px;
+            font-family: Lato-Regular;
+        }
+
+
+        .row-news td {
+            line-height: 48px !important;
+        }
+
+
+        .news__name {
+            font-size: 20px;
+            font-family: Lato-Light;
+            font-weight: 300;
+        }
+
+        .row-news {
+            font-size: 16px;
+            font-family: Lato-Regular;
+        }
+
+        .news__more {
+            height: 24px;
+            cursor: pointer;
+
+        }
+
+        .news__group {
+            width: 240px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        /* .::: DROPDOWN :::. */
+        .published {
+            color: #a0d71e;
+        }
+
+        .scheduled {
+            color: #ef7d00;
+        }
+
+        .archived {
+            color: #6e6e78;
+        }
+
+        .dropdown-menu>li>a:focus,
+        .dropdown-menu>li>a:hover {
+            background-color: rgba(0, 112, 184, 0.05) !important;
+        }
+
+        .custom-dropdown {
+            padding-top: 12px;
+        }
+
+        /* .::: MODAL :::. */
+        .archived-modal .modal-title {
+            font-size: 32px !important;
+            font-family: Bree-Serif;
+            font-weight: bold;
+            color: #0070b8;
+        }
+
+        .archived-modal .modal-body {
+            font-size: 16px !important;
+            font-family: Lato-Regular;
+            color: #141428;
+        }
+
+        .archived-modal .modal-footer,
+        .archived-modal .modal-header,
+        .archived-modal .modal-body {
+            border: none !important;
+            text-align: center;
+        }
+
+        .archived-modal .modal-footer .do-btn,
+        .archived-modal .modal-footer .undo-btn {
+            width: 88px;
+            height: 43px;
+        }
+
+
+        /* .::: CREATE PAGE :::. */
+
+        /* Container holding the image and the text */
+        .create-panel {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .create-panel__container {
+            position: relative;
+        }
+
+        /* Top left text */
+        .create-panel__buttons {
+            position: absolute;
+            top: 8px;
+            left: 16px;
+
+        }
+
+        .create-panel__banner {
+            width: 1920px;
+            height: 480px;
+            object-fit: cover;
+        }
+
+        .btn-header,
+        .btn-publish {
+            display: inline;
+            line-height: 62px;
+        }
+
+        .btn-header {
+            position: relative;
+            left: 40px;
+            float: left;
+            width: 122px;
+            color: #141428;
+            font-family: Lato-Regular;
+            font-size: 16px;
+        }
+
+        .btn-header img {
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        .btn-publish {
+            float: right;
+            height: 64px;
+            width: 122px;
+            background-color: #a0d71e;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            font-family: Lato-Regular;
+        }
+
+        .btn-publish:hover {
+            text-decoration: none;
+            color: #fff;
+            background-color: #a0d71e8f;
+        }
+
+        .btn-header:hover {
+            text-decoration: none;
+            color: #141428;
+
+        }
+
+        .create-panel__name {
+            position: absolute;
+            bottom: 40px;
+            left: 80px;
+            font-size: 40px;
+            font-family: Lato-Light;
+            color: #141428;
+        }
+
+        .create-panel__header {
+            position: absolute;
+            top: 0;
+            height: 64px;
+            width: 100%;
+        }
+
+        .create-panel-options {
+            padding: 40px 80px;
+        }
+
+        .create-panel-options__line {
+            background-color: #0070b8;
+            height: 2px;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            top: 42px;
+        }
+
+        .create-panel-options__line__button {
+            position: absolute;
+            bottom: -14px;
+            background-color: #0070b8;
+            border-radius: 20px;
+            height: 32px;
+            width: 32px;
+        }
+
+        .create-panel-options__line__button img {
+            width: 16px;
+            height: 16px;
+            margin-top: 8px;
+        }
+
+        #wrap-table-news-1,
+        #wrap-table-news-2 {
+            height: 100%;
+        }
+
+        .blur {
+            filter: blur(8px);
+            background: white;
+        }
+
+        .navbar.fixed-right {
+            background-color: #FFF;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            box-shadow: 0 0 64px 0 rgba(20, 19, 40, 0.3);
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: none;
+        }
+
+        .side-panel-block {
+            display: block !important;
+        }
+
+        .container-submenu {
+            /* display: none; */
+        }
+
+        .navbar {
+            border: none !important;
+        }
+
+        @media (min-width: 1070px) {
+            .navbar.fixed-right {
+                left: auto;
+                width: 640px;
+                height: 100%;
+            }
+        }
+
+        @media (min-width: 1500px) {
+            .navbar.fixed-right {
+                width: 640px;
+                height: 100%;
+                border-radius: 10px 0px 0px 0px;
+            }
+        }
+
+
+        .icone-size img {
+            width: 16px;
+            height: 16px;
+            margin: 0px 5px;
+        }
+
+
+
+        .content {
+            padding: 64px;
+        }
+
+        .title-panel {
+            color: #0070b8;
+            font-size: 32px;
+            font-family: Bree-Serif;
+            font-weight: bold;
+        }
+
+        .subtitle-panel {
+            font-family: Lato-Regular;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .subtitle-panel {
+            color: #0070b8;
+            font-size: 16px;
+            font-family: Lato-Regular;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .text-publicada {
+            color: #a0d71e;
+            font-size: 16px;
+            font-family: Lato-Regular;
+            font-weight: bold;
+        }
+
+        .text-expirada {
+            color: #e52330;
+            font-size: 16px;
+            font-family: Lato-Regular;
+            font-weight: bold;
+        }
+
+        .date-style {
+            font-size: 14px;
+            color: #6e6e78;
+            font-family: Lato-Regular;
+            margin-bottom: 32px;
+        }
+
+        .content-subtitle {
+            font-size: 14px;
+            font-family: Lato-Regular;
+            color: #141428;
+            margin-bottom: 5px;
+        }
+
+        .text-style {
+            font-family: Lato-Regular;
+            font-size: 16px;
+            color: #141428;
+            margin-bottom: 4px;
+        }
+
+        #dup {
+            margin-left: 0px;
+            margin-right: 37px;
+        }
+
+        .text-margin {
+            margin-right: 35px;
+        }
+
+        #close img {
+            margin-left: 15px;
+
+        }
+
+
+        /* forms */
+
+        .form-voluntarios {
+            padding: 0 32px;
+            box-sizing: border-box;
+            width: calc(100% - 70px);
+        }
+
+        .voluntarios-form__header {
+            margin-top: 70px;
+            height: 160px;
+            width: 100%;
+            padding: 24px;
+            background-color: #0070b8;
+        }
+
+        .voluntarios-form__title {
+            font-family: BreeSerif;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 200px;
+            text-align: left;
+            color: white;
+        }
+
+        .voluntarios-form__container {
+            padding: 16px;
+        }
+
+        .container-description {
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+            color: #6e6e78;
+        }
+
+        .form-container {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .input__container {
+            margin-bottom: 32px;
+            display: block;
+            position: relative;
+        }
+
+        .input__label {
+            font-family: Lato;
+            font-size: 14px;
+            line-height: 1.57;
+            text-align: left;
+            color: #141428;
+        }
+
+        input:-ms-input-placeholder {
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+            color: #6e6e78;
+        }
+
+        .input:focus {
+            border-bottom: 2px solid #0070b8;
+        }
+
+        .custom-input {
+            color: #141428;
+            width: 100%;
+            padding: 0 10px;
+            margin: 5px 0;
+            line-height: 1.3;
+            outline: none;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 2px solid gray;
+        }
+
+        .select__container {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .select-css {
+            position: relative;
+            display: block;
+            font-size: 16px;
+            color: #6e6e78;
+            line-height: 1.3;
+            padding: 0 10px;
+            margin: 5px 0;
+            padding: 0;
+            font-size: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid rgba(20, 19, 40, 0.3);
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+        }
+
+        .chevron::before {
+            border-style: solid;
+            border-width: 2px 2px 0 0;
+            content: '';
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            left: 95%;
+            position: absolute;
+            top: 50%;
+            transform: rotate(135deg);
+            vertical-align: top;
+            z-index: 100;
+        }
+
+        .select-panel::-ms-expand {
+            display: none;
+        }
+
+        .select-panel:hover {
+            border-color: #888;
+        }
+
+        .select-panel:focus {
+            border-bottom: 2px solid #0070b8;
+        }
+
+        .select-panel option {
+            font-weight: normal;
+        }
+
+        .options__container {
+            padding: 16px 16px 16px 0;
+            position: relative;
+        }
+
+        .container-check {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .containercheck-check input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            height: 16px;
+            width: 16px;
+            border-radius: 4px;
+            border: solid 1px #141428;
+            background-color: white;
+        }
+
+        .container-check:hover input~.checkmark {
+            background-color: white;
+        }
+
+        .check-label {
+            font-family: BreeSerifSb;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+            color: #141428;
+        }
+
+        .container-check input:checked~.checkmark {
+            background-color: #2196F3;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .container-check input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .container-check .checkmark:after {
+            left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .container-check input[type="checkbox"] {
+            display: none;
+        }
+
+        .form-voluntarios--button {
+            width: 110px;
+            height: 43px;
+            border-radius: 6px;
+            background-color: #0070b8;
+            outline: none;
+            margin-top: 64px;
+            margin-bottom: 80px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .days__text {
+            font-family: Lato;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: left;
+            color: #141428;
+        }
+
+        .button-text {
+            font-family: Lato;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            text-align: center;
+            color: white;
+        }
+
+        .input__container .custom-input {
+            border: none;
+            border-bottom: 1px solid rgba(20, 19, 40, 0.3);
+            color: #6e6e78;
+            width: 100%;
+            padding: 0 !important;
+            outline: none;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .voluntarios-form__header {
+                height: 80px;
+            }
+
+            .voluntarios-form__title {
+                font-family: BreeSerif;
+                font-size: 18px;
+                line-height: 60px;
+            }
+
+            .container-description {
+                font-size: 14px;
+            }
+
+            .form-container {
+                margin-top: 24px;
+            }
+
+            .form-voluntarios--button {
+                width: 80px;
+                height: 40px;
+                margin-top: 32px;
+                margin-bottom: 32px;
+
+            }
+
+            .button-text {
+                font-family: Lato;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1.5;
+                text-align: center;
+                color: white;
+            }
+
+        }
+
+        .button {
+            width: 122px;
+            height: 43px;
+            border-radius: 6px;
+            border: none;
+            margin-right: 5px;
+            font-family: Lato-Regular;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .button-public {
+            background: #a0d71e;
+            color: white;
+        }
+
+        .button-close {
+            background: white;
+            color: #141428;
+        }
+
+        .content-title-date {
+            color: #0070b8;
+            font-family: Lato-Regular;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .copy-link {
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        .btn-publish-sidepanel {
+            background-color: #a0d71e;
+            color: #fff;
+            margin-right: 32px;
+        }
+
+        .container-panel-buttons {
+            position: relative;
+            bottom: -60px;
+            left: 60px;
+        }
+
+        .icone-size a,
+        .icone-size a:hover {
+            color: #141428;
+            text-decoration: none;
+        }
+
+        #filetag {
+            display: none;
+        }
+
+        .input-edit-title {
+            background: none;
+        }
+
+        .disable-button {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        #createNews {
+            height: 1000px;
+        }
+
+        .nome-enquete {
+            font-family: Lato-Light;
+            font-size: 24px;
+            color: #141428;
+            line-height: 1.33;
+
+        }
+
+        .label-panel {
+            color: #141428;
+            font-size: 14px;
+            font-family: Lato-Regular;
+            line-height: 1.57;
+            font-weight: normal !important;
+        }
+
+        .text-bold-panel {
+            font-size: 16px;
+            font-family: Lato;
+            font-weight: bold;
+            line-height: 1.5;
+            color: #0070b8;
+        }
+
+        .text-panel {
+            color: #141428;
+            font-size: 16px;
+            font-family: Lato-Regular;
+            line-height: 1.5;
+        }
+
+        .square {
+            padding: 20px;
+            border: 1px solid #141328;
+        }
+
+        .button-blue {
+            height: 43px;
+            border-radius: 6px;
+            background-color: #0070b8;
+            outline: none;
+            margin-top: 64px;
+            margin-bottom: 80px;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+        }
+
+        .nav-panel {
+            background: #e6e6eb;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            font-size: 16px;
+            font-family: Lato-Regular;
+            color: #141428;
+        }
+
+        .text-select-panel {
+            margin-top: 10px;
+        }
+
+        .enquetes-select-panel {
+            padding: 20px;
+        }
+
+        .input-options {
+            border: none;
+            border-bottom: 1px solid rgba(20, 19, 40, 0.3);
+            color: #6e6e78;
+            padding: 0 !important;
+            outline: none;
+        }
+
+        .custom-list {
+            padding: 15px;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .wrap-panel-content {
+            margin-top: 32px;
+        }
+
+        .panel-buttons {
+            margin-top: 100px;
+        }
+
+    </style>
+
+    <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet"> -->
+
+</head>
+
+<body>
+
+    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.viewSidePanel()">Detalhes</a>
+    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.editSidePanel()">Editar</a>
+    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.publishSidePanel()">Publicar</a>
+    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.publishSuccessSidePanel()">Sucesso</a>
+
+    <div id="firstPage">
+        <div class="news-page-header">
+            <p>
+                <a href="#" onclick="surveyAdmin.helpers.showCreatePage()">
+                    <img src="/SitePages/src/Icones/icone-novo-branco.png">
+                    Nova Enquete
+                </a>
+            </p>
+        </div>
+
+        <div id="tablesNews" class="wrap-tables container-fluid" style="display: none;">
+
+            <!-- NAVIGATION -->
+            <ul class="nav-news-list nav-justified" role="tablist">
+                <li role="presentation" class="active">
+                    <a class="nav-news" href="#wrap-table-news-1" aria-controls="news" role="tab"
+                        data-toggle="tab">Enquetes</a>
+                </li>
+                <li role="presentation">
+                    <a class="nav-news" href="#wrap-table-news-2" aria-controls="profile" role="tab" data-toggle="tab">
+                        Enquetes arquivadas
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+
+                <!-- TABLE 1 -->
+                <div role="tabpanel" class="table-responsive tab-pane fade in active" id="wrap-table-news-1">
+                    <table id="table-news" class="table custom-table-news table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th></th>
+                                <th>Status</th>
+                                <th>Criada por</th>
+                                <th>Modificada por</th>
+                                <th>Última modificação</th>
+                                <th>Grupo</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <!-- TABLE 2 -->
+                <div role="tabpanel" class="tab-pane" id="wrap-table-news-2">
+                    <table id="table-archived-news" class="table custom-table-news table-hover">
+                        <thead>
+                            <tr>
+                                <th nowrap="nowrap">Nome</th>
+                                <th></th>
+                                <th>Status</th>
+                                <th>Criada por</th>
+                                <th>Modificada por</th>
+                                <th>Última modificação</th>
+                                <th>Grupo</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="createNews" style="display: block;">
+
+
+            <div class="create-panel">
+                <div id="openImageUrl" class="create-panel__container">
+                    <img id="preview" class="create-panel__banner" src="/SitePages/src/Images/img_placeholder@3x.png"
+                        style="width:100%;">
+
+
+                    <div class="create-panel__header">
+                        <div class="container-header panel-content">
+                            <a href="#" class="btn-header panel-content">
+                                <img src="/SitePages/src/Icones/icone-salvar-cinza.png">
+                                Salvar
+                            </a>
+                            <a href="#" class="btn-header panel-content" onclick="surveyAdmin.helpers.showTablesPage()">
+                                <img src="/SitePages/src/Icones/icone-fechar-preto.png">
+                                Cancelar
+                            </a>
+                            <a href="#" class="btn-publish panel-content"
+                                onclick="surveyAdmin.sidebar.publishSidePanel()">
+                                Publicar
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="create-panel__name">
+                        <p class="news-name panel-content" onclick="surveyAdmin.helpers.transformToInput(this)">Nome da enquete</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+                <div class="create-panel-options">
+                    <div class="content-subtitle">Descrição da enquete</div>
+                    <div class="input__container">
+                        <input class="input custom-input" placeholder="Insira a descrição da enquete" type="text" id="newsDesc"
+                            name="newsDesc">
+                    </div>
+
+                    <div id="create-panel-selects"></div>
+
+                    <div class="create-panel-options__line">
+
+                        <a tabindex="0" id="addSelectEnquete" class="create-panel-options__line__button" role="button"
+                            data-html="true" data-toggle="popover" data-trigger="click" title="<b>Em destaque</b>"
+                            data-placement="bottom" data-content="">
+
+                            <img src="/SitePages/src/Icones/icone-novo-branco.png">
+                        </a>
+                    </div>
+                </div>
+           
+        </div>
+
+        <input type="file" id="filetag">
+    </div>
+
+
+
+    <div class="content navbar fixed-right ype" id="sidebar-shortcuts">
+        <div id="view-panel" class="panel-container" style="display: none;">
+            <div id="sidebar">
+                <nav class="nav-panel">
+                    <div>
+
+                        <div class="col-md-2 icone-size">
+                            <a href="#" onclick="surveyAdmin.sidebar.editSidePanel()">
+                                <!-- <img src="/SitePages/src/Icones/icone-editar-preto.png"> -->
+                                Editar
+                            </a>
+                        </div>
+
+                        <div class="col-md-2 icone-size">
+                            <a href="#">
+                                <!-- <img src="/SitePages/src/Icones/icone-link-preto-1.png"> -->
+                                Link
+                            </a>
+                        </div>
+
+
+                        <div class="col-md-2 icone-size">
+                            <a href="#">
+                                <!-- <img src="/SitePages/src/Icones/icone-duplicar-preto.png"> -->
+                                Duplicar
+                            </a>
+                        </div>
+
+                        <div class="col-md-2 icone-size">
+                            <a href="#" onclick="surveyAdmin.sidebar.closeSidePanel()">
+                                <!-- <img src="/SitePages/src/Icones/icone-fechar-preto.png"> -->
+                                Fechar
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <form class="form-container">
+                <form class="form-container">
+                    <div class="panel-header">
+                        <h1 class="title-panel">Detalhes</h1>
+                        <p class="nome-enquete">Nome da Enquete</p>
+
+                        <div class="wrap-panel-content">
+                            <h2 class="subtitle-panel">Status da enquete</h2>
+                            <div class="text-publicada">Publicada</div>
+                            <p class="date-style data-publicacao">12/11/2019</p>
+                        </div>
+
+                        <div class="wrap-panel-content">
+                            <div class="text-expirada">Expira em</div>
+                            <p class="expira-em date-style">12/11/2019</p>
+                        </div>
+
+                        <div class="wrap-panel-content">
+                            <h2 class="subtitle-panel">Informações da enquete</h2>
+                            <p class="label-panel">Criada por</p>
+                            <p class="text-panel criada-por">Nome da usuária</p>
+                            <p class="data-criacao date-style">12/11/2019</p>
+
+                        </div>
+
+                        <div class="wrap-panel-content">
+                            <p class="label-panel">Modificado por</p>
+                            <p class="text-panel modificada-por">Nome da usuária</p>
+                            <p class="data-modificacao date-style">12/11/2019</p>
+                        </div>
+
+                        <div class="wrap-panel-content">
+                            <h2 class="subtitle-panel">Respostas da enquete</h2>
+                            <p class="label-panel">Número de respostas</p>
+                            <p class="label-panel numero-respostas">145</p>
+                        </div>
+
+                        
+                        <div class="wrap-panel-content">
+                            <h2 class="subtitle-panel">Audiência</h2>
+                            <p class="label-panel">Nome da empresa</p>
+                            <p class="label-panel nome-empresa">Ypê</p>
+                        </div>
+
+                        <div class="wrap-panel-content">
+                            <p class="label-panel">Nome da unidade</p>
+                            <p class="label-panel nome-unidade">Amparo</p>
+                        </div>
+
+                        <div class="wrap-panel-content">
+                            <p class="label-panel">Nome do grupo</p>
+                            <p class="label-panel nome-grupo">Equipe; Diretoria;</p>
+                        </div>
+
+                    </div>
+                </form>
+
+            </form>
+        </div>
+
+        <div id="edit-panel" class="panel-container" style="display: none;">
+            <form class="form-container">
+                <!-- <input class="input" type="hidden" id="enqueteName" name="enqueteName" value=""> -->
+                <div class="panel-header">
+                    <h1 class="title-panel">Editar </h1>
+                    <label for="nome-enquete" class="label-control label-panel">Nome da enquete</label>
+                    <input class="custom-input" type="text" id="nome-enquete" name="nome-enquete" placeholder="Digite o nome da enquete">
+                </div>
+
+                <div id="agendarEnquete">
+                    <h2 class="subtitle-panel">Agende a sua enquete</h2>
+
+                    <div class="form-group">
+                        <label for="data-publicacao" class="label-control label-panel">Data de publicação</label>
+                        <input class="custom-input date-picker" type="text" id="data-publicacao" name="data-publicacao"  placeholder="Escolha a data de publicação"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data-expiracao" class="label-control label-panel">Data de expiração</label>
+                        <input class="custom-input date-picker" type="text" id="data-expiracao" name="data-expiracao"  placeholder="Escolha a data de expiração"
+                            required>
+                    </div>
+
+                </div>
+
+                <div id="apresentacaoEnquete">
+                    
+                    <div class="form-group wrap-panel-content">
+                        <h2 class="subtitle-panel">Apresentação da enquete</h2>
+                        <p class="label-panel">Publicar a enquete na homepage?</p>
+                        <div class="checkbox">
+                            <label class="label-panel" for="checkbox-substituir">
+                                <input class="" type="checkbox" id="checkbox-substituir" name="checkbox-substituir" required>Sim. Substituir a enquete atual por essa
+                                enquete.</label>
+                          </div>
+                    </div>
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="select-publicar-outra" class="label-panel label-control">Publicar a enquete em outra
+                            página?</label>
+                        <select class="custom-input" name="select-publicar-outra" id="select-publicar-outra"
+                            required>
+                            <option>Escolha a página que você deseja publicar</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div id="definaAudiencia">
+
+                    
+                    <div class="form-group wrap-panel-content">
+                        <h2 class="subtitle-panel">Defina a audiência</h2>
+                        <label for="select-empresa" class="label-control label-panel">Empresa</label>
+                        <!-- <span class="chevron"></span> -->
+                        <select class="select-panel custom-input" name="select-empresa" id="select-empresa"
+                            required>
+                            <option>Escolha a empresa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="select-unidade" class="label-control label-panel">Unidade</label>
+                        <!-- <span class="chevron"></span> -->
+                        <select class="select-panel custom-input" name="select-unidade" id="publicar-unidade"
+                            required>
+                            <option>Escolha a unidade</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="select-grupo" class="label-control label-panel">Grupo</label>
+                        <!-- <span class="chevron"></span> -->
+                        <select class="select-panel custom-input" name="select-grupo" id="publicar-grupo"
+                            required>
+                            <option>Escolha o grupo</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="panel-buttons">
+                    <button class="btn button btn-publish-sidepanel"
+                        onclick="surveyAdmin.api.updateNews()">Salvar</button>
+                    <button class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="publish-panel" class="panel-container" style="display: none;">
+
+            <form class="form-container">
+                <input class="input" type="hidden" id="enqueteName" name="enqueteName" value="">
+                <div class="panel-header">
+                    <h1 class="title-panel">Publicar Enquete</h1>
+                    <p class="nome-enquete">Nome da Enquete</p>
+                </div>
+
+                <div id="agendarEnquete">
+                    
+                    <div class="form-group wrap-panel-content">
+                        <h2 class="subtitle-panel">Agende a sua enquete</h2>
+                        <label for="data-publicacao" class="label-control label-panel">Data de publicação</label>
+                        <input class=" custom-input date-picker" type="text" id="data-publicacao" name="data-publicacao"   placeholder="Escolha a data de publicação"
+                            required>
+                    </div>
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="data-expiracao" class="label-control label-panel">Data de expiração</label>
+                        <input class="date-picker custom-input" type="text" id="data-expiracao" name="data-expiracao"   placeholder="Escolha a data de expiração"
+                            required>
+                    </div>
+
+                </div>
+
+                <div id="apresentacaoEnquete">
+                    
+                    <div class="form-group wrap-panel-content">
+                        <h2 class="subtitle-panel">Apresentação da enquete</h2>
+                        <p class="label-panel">Publicar a enquete na homepage?</p>
+                        <input class="" type="checkbox" id="checkbox-substituir" name="checkbox-substituir" required>
+                        <label class="label-panel" for="checkbox-substituir">Sim. Substituir a enquete atual por essa
+                            enquete.</label>
+                    </div>
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="select-publicar-outra" class="label-panel label-control">Publicar a enquete em outra
+                            página?</label>
+                        <select class="custom-input" name="select-publicar-outra" id="select-publicar-outra"
+                            required>
+                            <option>Escolha a página que você deseja publicar</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div id="definaAudiencia">
+
+                    <div class="form-group wrap-panel-content">
+                        <h2 class="subtitle-panel">Defina a audiência</h2>
+                        <label for="select-empresa" class="label-control label-panel">Empresa</label>
+                        <!-- <span class="chevron"></span> -->
+                        <select class="select-panel custom-input" name="select-empresa" id="select-empresa"
+                            required>
+                            <option>Escolha a empresa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="select-unidade" class="label-control label-panel">Unidade</label>
+                        <!-- <span class="chevron"></span> -->
+                        <select class="select-panel custom-input" name="select-unidade" id="publicar-unidade"
+                            required>
+                            <option>Escolha a unidade</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group wrap-panel-content">
+                        <label for="select-grupo" class="label-control label-panel">Grupo</label>
+                        <!-- <span class="chevron"></span> -->
+                        <select class="select-panel custom-input" name="select-grupo" id="publicar-grupo"
+                            required>
+                            <option>Escolha o grupo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="panel-buttons">
+                    <button class="btn button btn-publish-sidepanel">Publicar</button>
+                    <button class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div id="success-panel" class="panel-container" style="display: none;">
+            <div class="panel-header">
+                <h1 class="title-panel">Enquete publicada!</h1>
+                <p class="nome-enquete">Nome da Enquete</p>
+                <p class="text-bold-panel">Data de publicação</p>
+                <p class="text-panel">Endereço do formulário</p>
+                <div class="square">link</div>
+                <div class="text-right">
+
+                    <button class="btn button-blue">Copiar endereço</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.pt-BR.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            surveyAdmin.helpers.popoverEnquetes();
+
+
+            // surveyAdmin.helpers.refreshTables();
+            // surveyAdmin.helpers.uploadImage();
+
+            $('.date-picker').datepicker({
+                format: "dd/mm/yyyy",
+                language: "pt-BR",
+                minViewMode: 0,
+                orientation: 'auto',
+                startDate: '+1d',
+                autoclose: true,
+                daysOfWeekDisabled: ['0']
+            });
+
+        });
+
+        var surveyAdmin = {
+            variables: {
+                jsonNews: "", // JSON com os dados da enquete selecionada
+                idNews: "", // JSON com o ID da enquete selecionada
+                nameEnquete: "Nome da enquete",
+                descNews: "",
+                publishDate: "",
+
+                // sidebar
+                expiredPublic: "31/07/1999",
+                createDate: "12/12/1999"
+            },
+
+            api: {
+                /**
+                 * Recebe as enquetes e adiciona na tabela
+                 */
+                getAllNews: function (table, novasNoticias) {
+                    $.ajax({
+                        url: '/Servicos/YPE.WebService.asmx/getNoticias?cargo=&novas=' + novasNoticias,
+                        cache: false,
+                        type: 'GET',
+                        async: false,
+                        success: function (data) {
+                            var newsData = JSON.parse($(data).find('string')[0].textContent);
+                            var tbodyHtml = "";
+                            newsData.map(function (news, index) {
+
+                                tbodyHtml +=
+                                    "<tr class='row-news'>" +
+                                    "<td class='news__name'> enquetetype='hidden' value='" +
+                                    JSON.stringify(news) + "'/>" +
+                                    news.Titulo + '</td>' +
+                                    "<td>" + surveyAdmin.helpers.buildDropdownByStatus(news
+                                        .Status) + "</td>" +
+                                    "<td class='news___status " + surveyAdmin.helpers
+                                    .setStatusStyle(news.Status) + "'>" + news.Status +
+                                    "</td>" +
+                                    "<td>" + news.CriadoPor + "</td>" +
+                                    "<td>" + news.ModificadoPor + "</td>" +
+                                    "<td>" + surveyAdmin.helpers.formatDate(news
+                                        .UltimaModificacao) + "</td>" +
+                                    "<td class='news__group'>" + news.Grupo + "</td>" +
+                                    "</tr>";
+
+                            });
+
+                            $(table + ' tbody').append(tbodyHtml);
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                },
+
+                deleteNews: function () {
+                    if (surveyAdmin.variables.idNews !== "") {
+                        $.ajax({
+                            url: '/Servicos/YPE.WebService.asmx/getNoticiaDel?idNoticia=' + surveyAdmin
+                                .variables.idNews,
+                            cache: false,
+                            type: 'GET',
+                            success: function (data) {
+                                surveyAdmin.helpers.refreshTables();
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    }
+                },
+
+                /** Função responsável por arquivar uma enquete*/
+                archiveNews: function () {
+                    if (surveyAdmin.variables.idNews !== "") {
+                        $.ajax({
+                            url: '/Servicos/YPE.WebService.asmx/getArquivarNoticia?idNoticia=' +
+                                surveyAdmin.variables.idNews,
+                            cache: false,
+                            type: 'GET',
+                            success: function (data) {
+                                surveyAdmin.helpers.refreshTables();
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    }
+                },
+
+                /** Função responsável por criar uma enquete
+                 * É necessário passar um json como parâmetro
+                 */
+                createNews: function () {
+                    var titleNews = $("#newsName").val();
+                    var descNews = $("#newsDesc").val();
+                    var companyNews = $("#selectCompany").val();
+                    var groupNews = $("#selectGroup").val();
+                    var unitNews = $("#selectUnit").val();
+                    var publishDate = $("#date").val();
+
+                    if (titleNews && companyNews && groupNews && unitNews) {
+                        var newsData = {
+                            Id: "0", // 0 = criar nova enquete
+                            Titulo: titleNews,
+                            Descricao: descNews,
+                            Status: 'Publicado',
+                            CriadoPor: "",
+                            ModificadoPor: "",
+                            UltimaModificacao: surveyAdmin.helpers.formatDate2(publishDate),
+                            Grupo: groupNews,
+                            Publicacao: surveyAdmin.helpers.formatDate2(publishDate),
+                            Empresa: companyNews,
+                            Unidade: unitNews,
+                            NoticiaNova: true
+                        };
+
+                        $.ajax({
+                            url: '/Servicos/YPE.WebService.asmx/postNoticia?noticia=' +
+                                JSON.stringify(newsData),
+                            cache: false,
+                            type: 'GET',
+                            success: function (data) {
+                                surveyAdmin.sidebar.publishSuccessSidePanel();
+                                surveyAdmin.helpers.refreshTables();
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    } else {
+                        alert('Existem campos não preenchidos.')
+                    }
+
+                },
+
+                updateNews: function () {
+                    var jsonNews = surveyAdmin.variables.jsonNews;
+
+                    if (jsonNews) {
+                        var newTitle = $("#edit-title").val();
+                        jsonNews.Titulo = newTitle;
+
+                        $.ajax({
+                            url: '/Servicos/YPE.WebService.asmx/postNoticia?noticia=' + JSON.stringify(
+                                jsonNews),
+                            cache: false,
+                            type: 'GET',
+                            success: function (data) {
+                                surveyAdmin.sidebar.closeSidePanel();
+                                surveyAdmin.helpers.refreshTables();
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    }
+                },
+
+                publishArchivedNews: function () {
+                    var jsonNews = surveyAdmin.variables.jsonNews;
+
+                    if (jsonNews) {
+                        jsonNews.Status = 'Publicado';
+                        jsonNews.NoticiaNova = 'true';
+
+                        $.ajax({
+                            url: '/Servicos/YPE.WebService.asmx/postNoticia?noticia=' + JSON.stringify(
+                                jsonNews),
+                            cache: false,
+                            type: 'GET',
+                            success: function (data) {
+                                surveyAdmin.helpers.refreshTables();
+                            },
+                            error: function (e) {
+                                console.log(e);
+                            }
+                        });
+                    }
+                },
+
+                getEmpresasUnidadesCargos: function () {
+                    $.ajax({
+                        url: '/Servicos/YPE.WebService.asmx/getEmpresasUnidadesCargos',
+                        cache: false,
+                        type: 'GET',
+                        success: function (data) {
+                            var newsData = JSON.parse($(data).find('string')[0].textContent);
+                            surveyAdmin.helpers.buildDropdownOptions(newsData);
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                }
+            },
+
+            sidebar: {
+                editSidePanel: function () {
+                    $(".panel-container").hide();
+                    $("#edit-panel").show();
+                    $(".container-submenu").removeClass("container-submenu");
+                    $("#sidebar-shortcuts").addClass("side-panel-block");
+                    surveyAdmin.helpers.blurScreen("#firstPage");
+
+                    $("#nome-enquete").val(surveyAdmin.variables.nameEnquete)
+
+                    /* $("#edit-panel .status-title").text(surveyAdmin.variables.jsonNews.Titulo);
+                     $("#edit-panel .date-style").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.Publicacao));
+                     $("#edit-panel .expi-date").text(surveyAdmin.variables.expiredPublic);
+                     $("#edit-panel .text-style").text(surveyAdmin.variables.jsonNews.CriadoPor);
+                     $("#edit-panel .create-date").text(surveyAdmin.variables.createDate);
+                     $("#edit-panel .modified-by").text(surveyAdmin.variables.jsonNews.ModificadoPor);
+
+                     var status = '<div class="details-title"> Editar </div> <div class="status-title">' +
+                         surveyAdmin.variables.jsonNews.Titulo +
+                         ' </div>' +
+                         '<form class="form-container">' +
+                         '<div class="input__container">' +
+                         'enqueteclass="input" placeholder="Editar nome da enquete" type="text" id="edit-title" name="edit-title">' +
+                         '</div>' +
+
+                         '<div class="input__container">' +
+                         '<textarea class="input" placeholder="Editar descrição da enquete" type="text" id="edit-title" name="edit-title">' +
+                         surveyAdmin.variables.jsonNews.Descricao + '</textarea>' +
+                         '</div>' +
+
+                         '<div class="content-title">Status da enquete</div>' +
+                         '<div class="status-public">Publicada</div>' +
+                         '<div class="date-style">' + surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews
+                             .Publicacao) + '</div>' +
+                         '<div class="status-expi">Expira em</div>' +
+                         '<div class="date-style">' + surveyAdmin.variables.expiredPublic + '</div>';
+
+                     var info = '<div class="content-title">Informações da enquete</div>' +
+                         '<div class="content-subtitle">Criado por</div>' + '<div class="text-style">' +
+                         surveyAdmin.variables.jsonNews.CriadoPor + '</div>' + '<div class="date-style">' +
+                         surveyAdmin
+                         .variables.createDate + '</div>' +
+                         '<div class="content-subtitle">Modificado por</div>' + '<div class="text-style">' +
+                         surveyAdmin.variables.jsonNews.ModificadoPor + '</div>' + '<div class="date-style">' +
+                         surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.UltimaModificacao) + '</div>';
+
+                     var aud = '<div class="content-title">Audiência </div>' +
+                         '<div class="content-subtitle"> Nome da empresa </div>' +
+                         '<div class="text-style">' + surveyAdmin.variables.jsonNews.Empresa + '</div>' +
+                         '<div class="content-subtitle">Nome da unidade</div>' + '<div class="text-style">' +
+                         surveyAdmin.variables.jsonNews.Unidade + '</div>' +
+                         '<div class="content-subtitle" >Nome do grupo</div>' +
+                         '<div class="text-style">Equipe: ' + surveyAdmin.variables.jsonNews.Grupo + '</div>' +
+                         '<div class="container-panel-buttons"><a class="btn btn-publish-sidepanel" onclick="surveyAdmin.api.updateNews()">Publicar</a><a class="btn" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</a></div>';
+
+
+                     document.querySelector('.content').innerHTML = status + info + aud;*/
+                },
+
+                viewSidePanel: function () {
+                    $(".panel-container").hide();
+                    $("#view-panel").show();
+                    $(".container-submenu").removeClass("container-submenu");
+                    $("#sidebar-shortcuts").addClass("side-panel-block");
+                    surveyAdmin.helpers.blurScreen("#firstPage");
+
+                    $("#view-panel .nome-enquete").text(surveyAdmin.variables.jsonNews.Titulo);
+                    $("#view-panel .data-publicacao").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables
+                        .jsonNews.Publicacao));
+                    $("#view-panel .expira-em").text(surveyAdmin.variables.expiredPublic);
+                    $("#view-panel .criada-por").text(surveyAdmin.variables.jsonNews.CriadoPor);
+                    $("#view-panel .data-criacao").text(surveyAdmin.variables.createDate);
+                    $("#view-panel .modificada-por").text(surveyAdmin.variables.jsonNews.ModificadoPor);
+                    $("#view-panel .data-modificacao").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables
+                        .jsonNews.UltimaModificacao));
+                    $("#view-panel .numero-respostas").text(surveyAdmin.variables.jsonNews.NumeroRespostas);
+                    $("#view-panel .nome-empresa").text(surveyAdmin.variables.jsonNews.Empresa);
+                    $("#view-panel .nome-unidade").text(surveyAdmin.variables.jsonNews.Unidade);
+                    $("#view-panel .nome-grupo").text(surveyAdmin.variables.jsonNews.Grupo);
+
+                    // var status = '<div class="details-title"> Detalhes </div> <div class="status-title">' +
+                    //     surveyAdmin.variables.jsonNews.Titulo + '</div>' +
+
+                    //     '<div class="content-title">' + surveyAdmin.variables.jsonNews.Status + '</div>' +
+                    //     '<div class="status-public">Publicada</div>' +
+                    //     '<div class="date-style">' + surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews
+                    //         .Publicacao) + '</div>' +
+                    //     '<div class="status-expi">Expira em</div>' +
+                    //     '<div class="date-style">' + surveyAdmin.variables.expiredPublic + '</div>';
+
+                    // var info = '<div class="content-title">Informações da enquete</div>' +
+                    //     '<div class="content-subtitle">Criado por</div>' + '<div class="text-style">' +
+                    //     surveyAdmin.variables.jsonNews.CriadoPor + '</div>' + '<div class="date-style">' +
+                    //     surveyAdmin
+                    //     .variables.createDate + '</div>' +
+                    //     '<div class="content-subtitle">Modificado por</div>' + '<div class="text-style">' +
+                    //     surveyAdmin.variables.jsonNews.ModificadoPor + '</div>' + '<div class="date-style">' +
+                    //     surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.UltimaModificacao) + '</div>';
+
+                    // var aud = '<div class="content-title">Audiência </div>' +
+                    //     '<div class="content-subtitle"> Nome da empresa </div>' +
+                    //     '<div class="text-style">' + surveyAdmin.variables.jsonNews.Empresa + '</div>' +
+                    //     '<div class="content-subtitle">Nome da unidade</div>' + '<div class="text-style">' +
+                    //     surveyAdmin.variables.jsonNews.Unidade + '</div>' +
+                    //     '<div class="content-subtitle" >Nome do grupo</div>' +
+                    //     '<div class="text-style">Equipe: ' + surveyAdmin.variables.jsonNews.Grupo + '</div>'
+
+                    // document.querySelector('.content').innerHTML = status + info + aud;
+                },
+
+                publishSidePanel: function () {
+                    surveyAdmin.api.getEmpresasUnidadesCargos();
+                    $(".panel-container").hide();
+                    $("#publish-panel").show();
+                    $(".container-submenu").removeClass("container-submenu");
+                    $("#sidebar-shortcuts").addClass("side-panel-block");
+                    surveyAdmin.helpers.blurScreen("#firstPage");
+
+                    $("#publish-panel #enqueteName").val(surveyAdmin.variables.nameEnquete);
+                    $("#publish-panel .nome-enquete").text(surveyAdmin.variables.nameEnquete);
+
+
+                    // var status =
+                    //     '<div class="details-title"> Publicar enquete </div> <div class="status-title"> ' +
+                    //     surveyAdmin.variables.nameEnquete + ' </div>';
+
+                    // var date = '<form class="form-container">' +
+
+                    //     'enqueteclass="input" type="hidden" id="newsName" name="newsName" value="' + surveyAdmin
+                    //     .variables.nameEnquete + '">' +
+
+                    //     '<div class="content-title">Agende sua enquete</div>' +
+                    //     '<div class="content-subtitle">Data de publicação</div>' +
+                    //     '<div class="input__container">' +
+                    //     'enqueteclass="input" placeholder="" type="date" data-date-inline-picker="true" id="date" name="date">' +
+                    //     '</div>'
+                    // var status_1 =
+                    //     '<div class="content-title">Ajude as pessoas a encontrarem sua enquete</div>';
+                    // var info_1 = '<div class="content-subtitle">Adicione tags na sua enquete</div>';
+                    // var date_1 = '<form class="form-container">' + '<div class="input__container">' +
+                    //     'enqueteclass="input" placeholder="Digite o nome da tag" type="text" id="tags" name="tags">' +
+                    //     '</div>'
+                    // var status_2 = '<div class="content-title">Defina a audiência</div>';
+                    // var info_2 = '<div class="content-subtitle">Empresa</div>';
+                    // var date_2 = '<form class="form-container">' + '<div class="input__container">' +
+                    //     '<span class="chevron"></span>' +
+                    //     '<select class="select-css" name="selectCompany" id="selectCompany">' +
+                    //     '<option value="">Escolha a empresa</option>' +
+
+                    //     '</select>' + '</div>'
+                    // var info_3 = '<div class="content-subtitle">Unidade</div>';
+                    // var date_3 = '<form class="form-container">' + '<div class="input__container">' +
+                    //     '<span class="chevron"></span>' +
+                    //     '<select class="select-css" name="selectUnit" id="selectUnit">' +
+                    //     '<option value="">Escolha a a unidade</option>' +
+                    //     '</select>' + '</div>'
+                    // var info_4 = '<div class="content-subtitle">Grupo</div>';
+                    // var date_4 = '<form class="form-container">' + '<div class="input__container">' +
+                    //     '<span class="chevron"></span>' +
+                    //     '<select class="select-css" name="selectGroup" id="selectGroup">' +
+                    //     '<option value="">Escolha o grupo</option>' +
+                    //     '</select>' + '</div>'
+                    // var button =
+                    //     '<div class="container-panel-buttons"><a class="btn btn-publish-sidepanel" onclick="surveyAdmin.api.createNews()">Publicar</a><a class="btn" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</a></div>';
+                    // document.querySelector('.content').innerHTML = status + date + status_1 + info_1 +
+                    //     date_1 + status_2 + info_2 + date_2 + info_3 + date_3 + info_4 + date_4 + button;
+                },
+
+                closeSidePanel: function () {
+                    var element = document.querySelector('#sidebar-shortcuts');
+                    element.classList.remove("side-panel-block");
+                    var element1 = document.querySelector('#firstPage');
+                    element1.classList.remove("blur");
+
+                    surveyAdmin.variables.jsonNews = "";
+
+                    surveyAdmin.helpers.clearFields();
+                },
+
+                publishSuccessSidePanel: function () {
+                    $(".panel-container").hide();
+                    $("#success-panel").show();
+                    $(".container-submenu").removeClass("container-submenu");
+                    $("#sidebar-shortcuts").addClass("side-panel-block");
+                    surveyAdmin.helpers.blurScreen("#firstPage");
+
+
+                    /* var status =
+                         '<div class="details-title"> Enquete publicada! </div> <div class="status-title"> ' +
+                         surveyAdmin.variables.nameEnquete + ' </div>' +
+                         '<div class="content-title-date">Data de publicação: ' + date + '</div>';
+                     var info = '<div class="content-subtitle">Endereço da enquete</div>';
+                     var link = '<div class="copy-link">link</div>';
+                     var button =
+                         '<br><button onclick="surveyAdmin.sidebar.closeSidePanel()" id="close" class="btn">Fechar</button>'
+                     document.querySelector('.content').innerHTML = status + info + link + button;
+
+                     $(".news-name").text('Nome da enquete');*/
+                }
+            },
+
+            helpers: {
+                blurScreen: function (div) {
+                    $(div).addClass("blur");
+                },
+
+                /** Define a classe do texto baseado no status */
+                setStatusStyle: function (status) {
+                    return {
+                        'Publicado': 'published',
+                        'Arquivado': 'archived',
+                        'Agendado': 'scheduled'
+                    } [status];
+                },
+
+                /** Altera os links do dropdown baseado no status da enquete */
+                buildDropdownByStatus: function (status) {
+                    return '<div class="dropdown custom-dropdown">' +
+                        '<img class="news__more dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" src="/SitePages/src/Icones/icone-mais-azul.png">' +
+                        '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">' +
+                        (status !== 'Arquivado' ? '<li><a href="#">Ir para enquete</a></li>' :
+                            '<li><a onclick="surveyAdmin.api.publishArchivedNews()" href="#">Publicar</a></li>'
+                        ) +
+                        '<li><a href="#" onclick="surveyAdmin.sidebar.editSidePanel()">Editar</a></li>' +
+                        (status !== 'Arquivado' ?
+                            '<li><a class="archiveCurrentNews" href="#" data-toggle="modal" data-target="#archivedModal">Arquivar</a></li>' :
+                            '<li><a class="deleteCurrentNews" href="#" onclick="surveyAdmin.api.deleteNews()">Deletar</a></li>'
+                        ) +
+                        '<li><a href="#" onclick="surveyAdmin.sidebar.viewSidePanel()">Detalhes</a></li>' +
+                        '<li><a href="#">Alterar permissão</a></li>' +
+                        '</ul>' +
+                        '</div>';
+                },
+                handleClickMore: function () {
+                    $(".news__more").click(function () {
+                        surveyAdmin.variables.jsonNews = JSON.parse($(this).parent().parent().parent()
+                            .find('input').val());
+                        surveyAdmin.variables.idNews = surveyAdmin.variables.jsonNews.Id;
+                    });
+                },
+
+                formatDate: function (date) {
+                    var newDate = new Date(date)
+                    var formattedDate = ("0" + newDate.getDate()).substr(-2) + "/" +
+                        ("0" + (newDate.getMonth() + 1)).substr(-2) + "/" + newDate.getFullYear();
+
+                    return formattedDate;
+                },
+
+                formatDate2: function (date) {
+                    return new Date(new Date(date).toString().split('GMT')[0] + ' UTC').toISOString().split(
+                        '.')[0];
+                },
+
+                // entry: yyyy-mm-dd
+                formateDate3: function (inputDate) {
+                    var p = inputDate.split(/\D/g);
+                    return [p[2], p[1], p[0]].join("/");
+                },
+
+                /**
+                 * Apaga todos os registros e popula as tabelas novamente
+                 */
+                refreshTables: function () {
+                    $("#table-news tbody, #table-archived-news tbody").empty();
+                    surveyAdmin.api.getAllNews('#table-news', 'true');
+                    surveyAdmin.api.getAllNews('#table-archived-news', 'false');
+                    surveyAdmin.helpers.handleClickMore();
+                    surveyAdmin.variables.idNews = "";
+                },
+
+                showCreatePage: function () {
+                    $("#createNews").show();
+                    $("#tablesNews, .news-page-header").hide();
+                },
+
+                showTablesPage: function () {
+                    $("#createNews").hide();
+                    $("#tablesNews, .news-page-header").show();
+                },
+
+                clearFields: function () {
+                    $('.form-container')[0].reset();
+                },
+
+                uploadImage: function () {
+                    $('#openImageUrl').click(function (e) {
+                        if ($(e.target).is('.panel-content')) {
+                            e.preventDefault();
+                            return;
+                        }
+                        $('#filetag').trigger('click');
+                    });
+
+                    var fileTag = document.getElementById("filetag");
+                    var preview = document.getElementById("preview");
+
+                    fileTag.addEventListener("change", function () {
+                        surveyAdmin.helpers.changeImage(this);
+                    });
+
+                },
+
+                changeImage: function (input) {
+                    var reader;
+
+                    if (input.files && input.files[0]) {
+                        reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            preview.setAttribute('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                },
+
+                transformToInput: function (obj) {
+                    $(".create-panel__name").html(
+                        "<input onblur='surveyAdmin.helpers.handleBlurInput(this)' id='inputNewsTitle' name='inputNewsTitle' type='text' class='input-edit-title panel-content custom-input' value='" +
+                        obj.innerHTML + "' />");
+
+                    $(this).focus().select();
+                },
+
+                handleBlurInput: function (input) {
+                    if (!$(input).val()) return;
+
+                    $(".create-panel__name").html(
+                        "<p class='news-name panel-content' onclick='surveyAdmin.helpers.transformToInput(this)'>" +
+                        $(input).val() + "</p>"
+                    );
+
+                    surveyAdmin.variables.nameEnquete = $(input).val();
+                },
+
+
+                buildDropdownOptions: function (data) {
+                    data.Empresas.map(function (e) {
+                        $("#selectCompany").append('<option value="' + e.empresa + '">' + e.empresa +
+                            '</option>');
+                    });
+
+                    data.Unidades.map(function (u) {
+                        $("#selectUnit").append('<option value="' + u.unidade + '">' + u.unidade +
+                            '</option>');
+                    });
+
+                    data.Cargos.map(function (c) {
+                        $("#selectGroup").append('<option value="' + c.cargo + '">' + c.cargo +
+                            '</option>');
+                    });
+                },
+
+                appendNewField: function () {
+                    $(".create-panel-options").prepend(
+                        '<div class="content-subtitle">Descrição da enquete</div>' +
+                        '<div class="input__container">' +
+                        '<input class="input custom-input" placeholder="Insira a descrição da enquete" type="text" id="newsDesc" name="newsDesc">' +
+                        '</div>');
+
+                    $(".create-panel-options__line__button").addClass('disable-button');
+                },
+
+                popoverEnquetes: function () {
+                    $("#addSelectEnquete").popover();
+
+                    var html =
+                        '<div class="row enquetes-select-panel">' +
+                        '<div class="col-md-6 text-center add-selecao-multipla cursor-pointer">' +
+                        '<img src="icone-selecao-multipla-preto.png">' +
+                        '<p class="text-style text-select-panel">Seleção múltipla</p>' +
+                        '</div>' +
+                        '<div class="col-md-6 text-center add-selecao-unica cursor-pointer">' +
+                        '<img src="icone-selecao-unica-preto.png">' +
+                        '<p class="text-style text-select-panel">Seleção única</p>' +
+                        '</div>' +
+                        '</div>';
+
+                    $("#addSelectEnquete").attr("data-content", html);
+
+                    $(document).on("click", ".add-selecao-multipla", function () {
+                        surveyAdmin.survey.appendNewField("multipla");
+                    });
+
+                    $(document).on("click", ".add-selecao-unica", function () {
+                        surveyAdmin.survey.appendNewField("unica");
+
+                    });
+                }
+
+            },
+
+            survey: {
+                appendNewField: function (type) {
+                    var option = type === 'unica' ? 'Seleção de opção única' : 'Seleção de múltiplas opções'
+                    $("#create-panel-selects").append(
+                        '<div class="content-subtitle">' + option +  '</div>' +
+                        '<div class="input__container">' +
+                           
+                            '<input class="input custom-input" placeholder="Insira o título do campo" type="text">' +
+                            '<div class="opcoes-enquetes">' +
+                                '<div class="row">' +
+                                    '<div class="col-md-2">' + 
+                                        '<ol class="custom-list">' +
+                                            '<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"> </li>' +
+                                        '</ol>' +
+                                    '</div>' +
+                                    '<div class="col-md-2">' +
+                                       '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)"><img src="/SitePages/src/Icones/icone-novo-branco.png"> Adicionar nova opção</button>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+                    );
+                },
+
+                addOption: function(btn) {
+                    $(btn).parent().parent().find('ol').append('<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"></li>');
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
