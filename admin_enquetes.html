@@ -14,17 +14,17 @@
         /* .::: FONTS :::. */
         @font-face {
             font-family: 'Lato-Regular';
-            /* src: url('/SitePages/src/fonts/Lato/Lato-Regular.ttf'); */
+            src: url('/SitePages/src/fonts/Lato/Lato-Regular.ttf');
         }
 
         @font-face {
             font-family: 'Lato-Light';
-            /* src: url('/SitePages/src/fonts/Lato/Lato-Light.ttf'); */
+            src: url('/SitePages/src/fonts/Lato/Lato-Light.ttf');
         }
 
         @font-face {
             font-family: 'Bree-Serif';
-            /* src: url('/SitePages/src/fonts/Bree_Serif/BreeSerif-Regular.ttf'); */
+            src: url('/SitePages/src/fonts/Bree_Serif/BreeSerif-Regular.ttf');
         }
 
         /* .::: HEADER :::. */
@@ -1037,14 +1037,14 @@
 
                         <div class="col-md-2 icone-size">
                             <a href="#" onclick="surveyAdmin.sidebar.editSidePanel()">
-                                <!-- <img src="/SitePages/src/Icones/icone-editar-preto.png"> -->
+                                <img src="/SitePages/src/Icones/icone-editar-preto.png">
                                 Editar
                             </a>
                         </div>
 
                         <div class="col-md-2 icone-size">
                             <a href="#">
-                                <!-- <img src="/SitePages/src/Icones/icone-link-preto-1.png"> -->
+                                <img src="/SitePages/src/Icones/icone-link-preto-1.png">
                                 Link
                             </a>
                         </div>
@@ -1052,14 +1052,14 @@
 
                         <div class="col-md-2 icone-size">
                             <a href="#">
-                                <!-- <img src="/SitePages/src/Icones/icone-duplicar-preto.png"> -->
+                                <img src="/SitePages/src/Icones/icone-duplicar-preto.png">
                                 Duplicar
                             </a>
                         </div>
 
                         <div class="col-md-2 icone-size">
                             <a href="#" onclick="surveyAdmin.sidebar.closeSidePanel()">
-                                <!-- <img src="/SitePages/src/Icones/icone-fechar-preto.png"> -->
+                                <img src="/SitePages/src/Icones/icone-fechar-preto.png">
                                 Fechar
                             </a>
                         </div>
@@ -1320,7 +1320,9 @@
         </div>
     </div>
 
-    
+    <button onclick="surveyAdmin.survey.buildQuestions()">Get Enquetes</button>
+
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
@@ -1360,7 +1362,10 @@
 
                 // sidebar
                 expiredPublic: "31/07/1999",
-                createDate: "12/12/1999"
+                createDate: "12/12/1999",
+
+
+                Perguntas: []
             },
 
             api: {
@@ -1916,14 +1921,18 @@
 
                     var html =
                         '<div class="row enquetes-select-panel">' +
-                        '<div class="col-md-6 text-center add-selecao-multipla cursor-pointer">' +
-                        '<img src="icone-selecao-multipla-preto.png">' +
-                        '<p class="text-style text-select-panel">Seleção múltipla</p>' +
-                        '</div>' +
-                        '<div class="col-md-6 text-center add-selecao-unica cursor-pointer">' +
-                        '<img src="icone-selecao-unica-preto.png">' +
-                        '<p class="text-style text-select-panel">Seleção única</p>' +
-                        '</div>' +
+                            '<div class="col-md-4 text-center add-selecao-texto cursor-pointer">' +
+                                '<img src="/SitePages/src/Icones/icone-selecao-unica-preto.png">' +
+                                '<p class="text-style text-select-panel">Seleção única</p>' +
+                            '</div>' +
+                            '<div class="col-md-4 text-center add-selecao-multipla cursor-pointer">' +
+                                '<img src="/SitePages/src/Icones/icone-selecao-multipla-preto.png">' +
+                                '<p class="text-style text-select-panel">Seleção múltipla</p>' +
+                            '</div>' +
+                            '<div class="col-md-4 text-center add-selecao-unica cursor-pointer">' +
+                                '<img src="/SitePages/src/Icones/icone-selecao-unica-preto.png">' +
+                                '<p class="text-style text-select-panel">Seleção única</p>' +
+                            '</div>'
                         '</div>';
 
                     $("#addSelectEnquete").attr("data-content", html);
@@ -1945,9 +1954,9 @@
                     var option = type === 'unica' ? 'Seleção de opção única' : 'Seleção de múltiplas opções'
                     $("#create-panel-selects").append(
                         '<div class="content-subtitle">' + option +  '</div>' +
-                        '<div class="input__container">' +
-                           
-                            '<input class="input custom-input" placeholder="Insira o título do campo" type="text">' +
+                        '<div class="input__container container-perguntas">' +
+                            '<input type="hidden" class="tipo-pergunta" value="' + type  +'"   >' +
+                            '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
                             '<div class="opcoes-enquetes">' +
                                 '<div class="row">' +
                                     '<div class="col-md-2">' + 
@@ -1956,7 +1965,7 @@
                                         '</ol>' +
                                     '</div>' +
                                     '<div class="col-md-2">' +
-                                       '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)"><img src="/SitePages/src/Icones/icone-novo-branco.png"> Adicionar nova opção</button>' +
+                                       '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)">+ Adicionar nova opção</button>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -1966,6 +1975,35 @@
 
                 addOption: function(btn) {
                     $(btn).parent().parent().find('ol').append('<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"></li>');
+                },
+
+                buildQuestions: function(){
+                    var perguntas = $('.container-perguntas');
+                    
+                    perguntas.map(function(index, pergunta){
+
+                        var dadosPergunta = {
+                            idPergunta: 0,
+                            type: "",
+                            title: "",
+                            parameters: []
+                        }
+
+                        var opcoes = $(pergunta).find('.input-options');
+                        var titulo = $(pergunta).find('.custom-input').val();
+                        var tipoPergunta = $(pergunta).find('.tipo-pergunta').val();
+
+                        dadosPergunta.title = titulo;
+                        dadosPergunta.type = tipoPergunta;
+
+                        opcoes.map(function(i, opcao){
+                            var opt = $(opcao).val();
+                            dadosPergunta.parameters.push(opt)
+                        })
+                        
+                        console.log(dadosPergunta);
+                    })
+
                 }
             }
         }
