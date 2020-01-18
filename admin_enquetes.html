@@ -1922,8 +1922,8 @@
                     var html =
                         '<div class="row enquetes-select-panel">' +
                             '<div class="col-md-4 text-center add-selecao-texto cursor-pointer">' +
-                                '<img src="/SitePages/src/Icones/icone-selecao-unica-preto.png">' +
-                                '<p class="text-style text-select-panel">Seleção única</p>' +
+                                '<img src="/SitePages/src/Icones/icone-campo-texto-preto.png">' +
+                                '<p class="text-style text-select-panel">Campo de texto</p>' +
                             '</div>' +
                             '<div class="col-md-4 text-center add-selecao-multipla cursor-pointer">' +
                                 '<img src="/SitePages/src/Icones/icone-selecao-multipla-preto.png">' +
@@ -1936,6 +1936,10 @@
                         '</div>';
 
                     $("#addSelectEnquete").attr("data-content", html);
+
+                    $(document).on("click", ".add-selecao-texto", function () {
+                        surveyAdmin.survey.appendNewField("texto");
+                    });
 
                     $(document).on("click", ".add-selecao-multipla", function () {
                         surveyAdmin.survey.appendNewField("multipla");
@@ -1951,7 +1955,25 @@
 
             survey: {
                 appendNewField: function (type) {
-                    var option = type === 'unica' ? 'Seleção de opção única' : 'Seleção de múltiplas opções'
+
+                    var option = "";
+
+                    if(type == 'unica'){ option = 'Seleção de opção única'; }
+                    if(type == 'multipla'){ option = 'Seleção de múltiplas opções'; }
+                    if(type == 'texto'){ 
+                        option = 'Campo de texto'; 
+
+                        $("#create-panel-selects").append(
+                        '<div class="content-subtitle">' + option +  '</div>' +
+                        '<div class="input__container container-perguntas">' +
+                            '<input type="hidden" class="tipo-pergunta" value="' + type  +'"   >' +
+                            '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
+                        '</div>'
+                        );
+                        
+                        return;
+                    }
+
                     $("#create-panel-selects").append(
                         '<div class="content-subtitle">' + option +  '</div>' +
                         '<div class="input__container container-perguntas">' +
@@ -1965,7 +1987,9 @@
                                         '</ol>' +
                                     '</div>' +
                                     '<div class="col-md-2">' +
-                                       '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)">+ Adicionar nova opção</button>' +
+                                       '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)">' +
+                                        '<img src="/SitePages/src/Icones/icone-novo-branco.png"> Adicionar nova opção' +
+                                    '</button>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
