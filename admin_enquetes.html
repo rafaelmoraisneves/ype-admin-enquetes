@@ -1,3 +1,7 @@
+<%@ Page Language="C#" %>
+<%@ Register tagprefix="SharePoint" namespace="Microsoft.SharePoint.WebControls" assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+
+
 <html lang="en">
 
 <head>
@@ -9,6 +13,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"
         rel="stylesheet" />
 
+    <SharePoint:ScriptLink Name="MicrosoftAjax.js" runat="server" Defer="False" Localizable="false" />
+    <SharePoint:ScriptLink Name="SP.core.js" runat="server" Defer="False" Localizable="false" />
+    <SharePoint:ScriptLink Name="SP.js" runat="server" Defer="True" Localizable="false" />
 
     <style>
         /* .::: FONTS :::. */
@@ -886,7 +893,6 @@
         .panel-buttons {
             margin-top: 100px;
         }
-
     </style>
 
     <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -895,6 +901,9 @@
 </head>
 
 <body>
+    <SharePoint:SharePointForm runat="server" >
+    </SharePoint:SharePointForm>
+
 
     <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.viewSidePanel()">Detalhes</a>
     <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.editSidePanel()">Editar</a>
@@ -995,33 +1004,34 @@
                         </div>
                     </div>
                     <div class="create-panel__name">
-                        <p class="news-name panel-content" onclick="surveyAdmin.helpers.transformToInput(this)">Nome da enquete</p>
+                        <p class="news-name panel-content" onclick="surveyAdmin.helpers.transformToInput(this)">Nome da
+                            enquete</p>
                     </div>
                 </div>
             </div>
 
 
 
-                <div class="create-panel-options">
-                    <div class="content-subtitle">Descrição da enquete</div>
-                    <div class="input__container">
-                        <input class="input custom-input" placeholder="Insira a descrição da enquete" type="text" id="newsDesc"
-                            name="newsDesc">
-                    </div>
-
-                    <div id="create-panel-selects"></div>
-
-                    <div class="create-panel-options__line">
-
-                        <a tabindex="0" id="addSelectEnquete" class="create-panel-options__line__button" role="button"
-                            data-html="true" data-toggle="popover" data-trigger="click" title="<b>Em destaque</b>"
-                            data-placement="bottom" data-content="">
-
-                            <img src="/SitePages/src/Icones/icone-novo-branco.png">
-                        </a>
-                    </div>
+            <div class="create-panel-options">
+                <div class="content-subtitle">Descrição da enquete</div>
+                <div class="input__container">
+                    <input class="input custom-input" placeholder="Insira a descrição da enquete" type="text"
+                        id="newsDesc" name="newsDesc">
                 </div>
-           
+
+                <div id="create-panel-selects"></div>
+
+                <div class="create-panel-options__line">
+
+                    <a tabindex="0" id="addSelectEnquete" class="create-panel-options__line__button" role="button"
+                        data-html="true" data-toggle="popover" data-trigger="click" title="<b>Em destaque</b>"
+                        data-placement="bottom" data-content="">
+
+                        <img src="/SitePages/src/Icones/icone-novo-branco.png">
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <input type="file" id="filetag">
@@ -1035,14 +1045,14 @@
                 <nav class="nav-panel">
                     <div>
 
-                        <div class="col-md-2 icone-size">
+                        <div class="col-md-3 icone-size">
                             <a href="#" onclick="surveyAdmin.sidebar.editSidePanel()">
                                 <img src="/SitePages/src/Icones/icone-editar-preto.png">
                                 Editar
                             </a>
                         </div>
 
-                        <div class="col-md-2 icone-size">
+                        <div class="col-md-3 icone-size">
                             <a href="#">
                                 <img src="/SitePages/src/Icones/icone-link-preto-1.png">
                                 Link
@@ -1050,14 +1060,14 @@
                         </div>
 
 
-                        <div class="col-md-2 icone-size">
+                        <div class="col-md-3 icone-size">
                             <a href="#">
                                 <img src="/SitePages/src/Icones/icone-duplicar-preto.png">
                                 Duplicar
                             </a>
                         </div>
 
-                        <div class="col-md-2 icone-size">
+                        <div class="col-md-3 icone-size">
                             <a href="#" onclick="surveyAdmin.sidebar.closeSidePanel()">
                                 <img src="/SitePages/src/Icones/icone-fechar-preto.png">
                                 Fechar
@@ -1070,54 +1080,54 @@
                 <form class="form-container">
                     <div class="panel-header">
                         <h1 class="title-panel">Detalhes</h1>
-                        <p class="nome-enquete">Nome da Enquete</p>
+                        <p class="nome-enquete"></p>
 
                         <div class="wrap-panel-content">
                             <h2 class="subtitle-panel">Status da enquete</h2>
                             <div class="text-publicada">Publicada</div>
-                            <p class="date-style data-publicacao">12/11/2019</p>
+                            <p class="date-style data-publicacao"></p>
                         </div>
 
                         <div class="wrap-panel-content">
                             <div class="text-expirada">Expira em</div>
-                            <p class="expira-em date-style">12/11/2019</p>
+                            <p class="expira-em date-style"></p>
                         </div>
 
                         <div class="wrap-panel-content">
                             <h2 class="subtitle-panel">Informações da enquete</h2>
                             <p class="label-panel">Criada por</p>
-                            <p class="text-panel criada-por">Nome da usuária</p>
-                            <p class="data-criacao date-style">12/11/2019</p>
+                            <p class="text-panel criada-por"></p>
+                            <p class="data-criacao date-style"></p>
 
                         </div>
 
                         <div class="wrap-panel-content">
                             <p class="label-panel">Modificado por</p>
-                            <p class="text-panel modificada-por">Nome da usuária</p>
-                            <p class="data-modificacao date-style">12/11/2019</p>
+                            <p class="text-panel modificada-por"></p>
+                            <p class="data-modificacao date-style"></p>
                         </div>
 
                         <div class="wrap-panel-content">
                             <h2 class="subtitle-panel">Respostas da enquete</h2>
                             <p class="label-panel">Número de respostas</p>
-                            <p class="label-panel numero-respostas">145</p>
+                            <p class="label-panel numero-respostas"></p>
                         </div>
 
-                        
+
                         <div class="wrap-panel-content">
                             <h2 class="subtitle-panel">Audiência</h2>
                             <p class="label-panel">Nome da empresa</p>
-                            <p class="label-panel nome-empresa">Ypê</p>
+                            <p class="label-panel nome-empresa"></p>
                         </div>
 
                         <div class="wrap-panel-content">
                             <p class="label-panel">Nome da unidade</p>
-                            <p class="label-panel nome-unidade">Amparo</p>
+                            <p class="label-panel nome-unidade"></p>
                         </div>
 
                         <div class="wrap-panel-content">
                             <p class="label-panel">Nome do grupo</p>
-                            <p class="label-panel nome-grupo">Equipe; Diretoria;</p>
+                            <p class="label-panel nome-grupo"></p>
                         </div>
 
                     </div>
@@ -1132,7 +1142,8 @@
                 <div class="panel-header">
                     <h1 class="title-panel">Editar </h1>
                     <label for="nome-enquete" class="label-control label-panel">Nome da enquete</label>
-                    <input class="custom-input" type="text" id="nome-enquete" name="nome-enquete" placeholder="Digite o nome da enquete">
+                    <input class="custom-input" type="text" id="nome-enquete" name="nome-enquete"
+                        placeholder="Digite o nome da enquete">
                 </div>
 
                 <div id="agendarEnquete">
@@ -1140,80 +1151,44 @@
 
                     <div class="form-group">
                         <label for="data-publicacao" class="label-control label-panel">Data de publicação</label>
-                        <input class="custom-input date-picker" type="text" id="data-publicacao" name="data-publicacao"  placeholder="Escolha a data de publicação"
-                            required>
+                        <input class="custom-input date-picker" placeholder="Escolha a data de publicação" type="date" data-date-inline-picker="true" id="data-publicacao" name="data-publicacao">
                     </div>
 
                     <div class="form-group">
                         <label for="data-expiracao" class="label-control label-panel">Data de expiração</label>
-                        <input class="custom-input date-picker" type="text" id="data-expiracao" name="data-expiracao"  placeholder="Escolha a data de expiração"
-                            required>
+                        <input class="custom-input date-picker" placeholder="Escolha a data de expiração" type="date" data-date-inline-picker="true" id="data-expiracao" name="data-expiracao">
                     </div>
 
                 </div>
 
                 <div id="apresentacaoEnquete">
-                    
+
                     <div class="form-group wrap-panel-content">
                         <h2 class="subtitle-panel">Apresentação da enquete</h2>
                         <p class="label-panel">Publicar a enquete na homepage?</p>
                         <div class="checkbox">
                             <label class="label-panel" for="checkbox-substituir">
-                                <input class="" type="checkbox" id="checkbox-substituir" name="checkbox-substituir" required>Sim. Substituir a enquete atual por essa
+                                <input class="" type="checkbox" id="checkbox-substituir" name="checkbox-substituir">Sim. Substituir a enquete atual por essa
                                 enquete.</label>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="form-group wrap-panel-content">
                         <label for="select-publicar-outra" class="label-panel label-control">Publicar a enquete em outra
                             página?</label>
-                        <select class="custom-input" name="select-publicar-outra" id="select-publicar-outra"
-                            required>
+                        <select class="custom-input" name="select-publicar-outra" id="select-publicar-outra" required>
                             <option>Escolha a página que você deseja publicar</option>
                         </select>
                     </div>
 
                 </div>
 
-                <div id="definaAudiencia">
-
-                    
-                    <div class="form-group wrap-panel-content">
-                        <h2 class="subtitle-panel">Defina a audiência</h2>
-                        <label for="select-empresa" class="label-control label-panel">Empresa</label>
-                        <!-- <span class="chevron"></span> -->
-                        <select class="select-panel custom-input" name="select-empresa" id="select-empresa"
-                            required>
-                            <option>Escolha a empresa</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group wrap-panel-content">
-                        <label for="select-unidade" class="label-control label-panel">Unidade</label>
-                        <!-- <span class="chevron"></span> -->
-                        <select class="select-panel custom-input" name="select-unidade" id="publicar-unidade"
-                            required>
-                            <option>Escolha a unidade</option>
-                        </select>
-                    </div>
-
-
-                    <div class="form-group wrap-panel-content">
-                        <label for="select-grupo" class="label-control label-panel">Grupo</label>
-                        <!-- <span class="chevron"></span> -->
-                        <select class="select-panel custom-input" name="select-grupo" id="publicar-grupo"
-                            required>
-                            <option>Escolha o grupo</option>
-                        </select>
-                    </div>
-
-
-                </div>
+                
 
                 <div class="panel-buttons">
-                    <button class="btn button btn-publish-sidepanel"
-                        onclick="surveyAdmin.api.updateNews()">Salvar</button>
-                    <button class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
+                    <button type="button" class="btn button btn-publish-sidepanel"
+                        onclick="surveyAdmin.api.updateNews()">Salvar</button type="button">
+                    <button type="button" class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
                 </div>
             </form>
         </div>
@@ -1228,24 +1203,20 @@
                 </div>
 
                 <div id="agendarEnquete">
-                    
                     <div class="form-group wrap-panel-content">
                         <h2 class="subtitle-panel">Agende a sua enquete</h2>
                         <label for="data-publicacao" class="label-control label-panel">Data de publicação</label>
-                        <input class=" custom-input date-picker" type="text" id="data-publicacao" name="data-publicacao"   placeholder="Escolha a data de publicação"
-                            required>
+                        <input class="custom-input date-picker" placeholder="Escolha a data de publicação" type="date" data-date-inline-picker="true" id="data-publicacao" name="data-publicacao">
                     </div>
 
                     <div class="form-group wrap-panel-content">
                         <label for="data-expiracao" class="label-control label-panel">Data de expiração</label>
-                        <input class="date-picker custom-input" type="text" id="data-expiracao" name="data-expiracao"   placeholder="Escolha a data de expiração"
-                            required>
+                        <input class="custom-input date-picker" placeholder="Escolha a data de expiração" type="date" data-date-inline-picker="true" id="data-expiracao" name="data-expiracao">
                     </div>
-
                 </div>
 
                 <div id="apresentacaoEnquete">
-                    
+
                     <div class="form-group wrap-panel-content">
                         <h2 class="subtitle-panel">Apresentação da enquete</h2>
                         <p class="label-panel">Publicar a enquete na homepage?</p>
@@ -1257,8 +1228,7 @@
                     <div class="form-group wrap-panel-content">
                         <label for="select-publicar-outra" class="label-panel label-control">Publicar a enquete em outra
                             página?</label>
-                        <select class="custom-input" name="select-publicar-outra" id="select-publicar-outra"
-                            required>
+                        <select class="custom-input" name="select-publicar-outra" id="select-publicar-outra" required>
                             <option>Escolha a página que você deseja publicar</option>
                         </select>
                     </div>
@@ -1271,8 +1241,7 @@
                         <h2 class="subtitle-panel">Defina a audiência</h2>
                         <label for="select-empresa" class="label-control label-panel">Empresa</label>
                         <!-- <span class="chevron"></span> -->
-                        <select class="select-panel custom-input" name="select-empresa" id="select-empresa"
-                            required>
+                        <select class="select-panel custom-input" name="select-empresa" id="select-empresa" required>
                             <option>Escolha a empresa</option>
                         </select>
                     </div>
@@ -1280,8 +1249,7 @@
                     <div class="form-group wrap-panel-content">
                         <label for="select-unidade" class="label-control label-panel">Unidade</label>
                         <!-- <span class="chevron"></span> -->
-                        <select class="select-panel custom-input" name="select-unidade" id="publicar-unidade"
-                            required>
+                        <select class="select-panel custom-input" name="select-unidade" id="select-unidade" required>
                             <option>Escolha a unidade</option>
                         </select>
                     </div>
@@ -1290,16 +1258,15 @@
                     <div class="form-group wrap-panel-content">
                         <label for="select-grupo" class="label-control label-panel">Grupo</label>
                         <!-- <span class="chevron"></span> -->
-                        <select class="select-panel custom-input" name="select-grupo" id="publicar-grupo"
-                            required>
+                        <select class="select-panel custom-input" name="select-grupo" id="select-grupo" required>
                             <option>Escolha o grupo</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="panel-buttons">
-                    <button class="btn button btn-publish-sidepanel">Publicar</button>
-                    <button class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
+                    <button  type="button" class="btn button btn-publish-sidepanel">Publicar</button>
+                    <button  type="button" class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
                 </div>
             </form>
 
@@ -1314,7 +1281,7 @@
                 <div class="square">link</div>
                 <div class="text-right">
 
-                    <button class="btn button-blue">Copiar endereço</button>
+                    <button  type="button" class="btn button-blue">Copiar endereço</button>
                 </div>
             </div>
         </div>
@@ -1336,21 +1303,94 @@
         $(document).ready(function () {
             surveyAdmin.helpers.popoverEnquetes();
 
+            surveyAdmin.helpers.refreshTables();
+            surveyAdmin.helpers.uploadImage();
 
-            // surveyAdmin.helpers.refreshTables();
-            // surveyAdmin.helpers.uploadImage();
+            
 
-            $('.date-picker').datepicker({
-                format: "dd/mm/yyyy",
-                language: "pt-BR",
-                minViewMode: 0,
-                orientation: 'auto',
-                startDate: '+1d',
-                autoclose: true,
-                daysOfWeekDisabled: ['0']
-            });
+            fileInput = $("#filetag");
+            SP.SOD.executeFunc('sp.js', 'SP.ClientContext', registerClick);
+
+            // $('.date-picker').datepicker({
+            //     format: "dd/mm/yyyy",
+            //     language: "pt-BR",
+            //     minViewMode: 0,
+            //     orientation: 'auto',
+            //     startDate: '+1d',
+            //     autoclose: true,
+            //     daysOfWeekDisabled: ['0']
+            // });
+
+            surveyAdmin.helpers.getPageInfo();
 
         });
+
+        var fileInput;
+
+        function registerClick() {
+            //Register File Upload Click Event   
+            $("#filetag").change(readFile);
+        }
+        var arrayBuffer;
+
+        function readFile() {
+
+            //Get File Input Control and read th file name  
+            var element = document.getElementById("filetag");
+            var file = element.files[0];
+            var parts = element.value.split("\\");
+            var fileName = parts[parts.length - 1];
+
+            //Read File contents using file reader  
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                uploadFile(e.target.result, fileName);
+            }
+            reader.onerror = function (e) {
+                alert(e.target.error);
+            }
+            reader.readAsArrayBuffer(file);
+        }
+        var attachmentFiles;
+
+        function uploadFile(arrayBuffer, fileName) {
+            //Get Client Context,Web and List object.  
+            var clientContext = new SP.ClientContext(surveyAdmin.variables.pageUrl);
+            var oWeb = clientContext.get_web();
+            var oList = oWeb.get_lists().getByTitle('Imagens de Enquetes');
+
+            //Convert the file contents into base64 data  
+            var bytes = new Uint8Array(arrayBuffer);
+            var i, length, out = '';
+            for (i = 0, length = bytes.length; i < length; i += 1) {
+                out += String.fromCharCode(bytes[i]);
+            }
+            var base64 = btoa(out);
+            //Create FileCreationInformation object using the read file data  
+            var createInfo = new SP.FileCreationInformation();
+            createInfo.set_content(base64);
+            createInfo.set_url(fileName);
+
+            //Add the file to the library  
+            var uploadedDocument = oList.get_rootFolder().get_files().add(createInfo)
+            //Load client context and execcute the batch  
+            clientContext.load(uploadedDocument);
+            clientContext.executeQueryAsync(QuerySuccess, QueryFailure);
+        }
+
+        function QuerySuccess() {
+            console.log('File Uploaded Successfully.');
+        }
+
+        function QueryFailure(sender, args) {
+            console.log('Request failed with error message - ' + args.get_message() + ' . Stack Trace - ' + args
+                .get_stackTrace());
+            alert("Request failed with error message - " + args.get_message() + " . Stack Trace - " + args
+                .get_stackTrace());
+        }
+
+
+
 
         var surveyAdmin = {
             variables: {
@@ -1365,7 +1405,10 @@
                 createDate: "12/12/1999",
 
 
-                Perguntas: []
+                Perguntas: [],
+
+                imgBase64: "",
+                pageUrl: ""
             },
 
             api: {
@@ -1385,7 +1428,7 @@
 
                                 tbodyHtml +=
                                     "<tr class='row-news'>" +
-                                    "<td class='news__name'> enquetetype='hidden' value='" +
+                                    "<td class='news__name'> <input type='hidden' value='" +
                                     JSON.stringify(news) + "'/>" +
                                     news.Titulo + '</td>' +
                                     "<td>" + surveyAdmin.helpers.buildDropdownByStatus(news
@@ -1455,8 +1498,10 @@
                     var groupNews = $("#selectGroup").val();
                     var unitNews = $("#selectUnit").val();
                     var publishDate = $("#date").val();
+                    var img = surveyAdmin.variables.imgBase64;
+                    var fileName = surveyAdmin.variables.fileName
 
-                    if (titleNews && companyNews && groupNews && unitNews) {
+                    if (titleNews && companyNews && groupNews && unitNews && img && fileName) {
                         var newsData = {
                             Id: "0", // 0 = criar nova enquete
                             Titulo: titleNews,
@@ -1469,7 +1514,9 @@
                             Publicacao: surveyAdmin.helpers.formatDate2(publishDate),
                             Empresa: companyNews,
                             Unidade: unitNews,
-                            NoticiaNova: true
+                            NoticiaNova: true,
+                            ImageURL: encodeURIComponent(("/" + surveyAdmin.variables.folderName + "/" +
+                                surveyAdmin.variables.fileName).trim())
                         };
 
                         $.ajax({
@@ -1537,6 +1584,7 @@
                 },
 
                 getEmpresasUnidadesCargos: function () {
+                    console.log("-- getEmpresasUnidadesCargos --")
                     $.ajax({
                         url: '/Servicos/YPE.WebService.asmx/getEmpresasUnidadesCargos',
                         cache: false,
@@ -1560,7 +1608,7 @@
                     $("#sidebar-shortcuts").addClass("side-panel-block");
                     surveyAdmin.helpers.blurScreen("#firstPage");
 
-                    $("#nome-enquete").val(surveyAdmin.variables.nameEnquete)
+                    $("#nome-enquete").val(surveyAdmin.variables.jsonNews.Titulo)
 
                     /* $("#edit-panel .status-title").text(surveyAdmin.variables.jsonNews.Titulo);
                      $("#edit-panel .date-style").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.Publicacao));
@@ -1663,6 +1711,7 @@
                 },
 
                 publishSidePanel: function () {
+                    console.log("-- publishSidePanel --")
                     surveyAdmin.api.getEmpresasUnidadesCargos();
                     $(".panel-container").hide();
                     $("#publish-panel").show();
@@ -1721,6 +1770,8 @@
                 },
 
                 closeSidePanel: function () {
+          
+
                     var element = document.querySelector('#sidebar-shortcuts');
                     element.classList.remove("side-panel-block");
                     var element1 = document.querySelector('#firstPage');
@@ -1738,6 +1789,10 @@
                     $("#sidebar-shortcuts").addClass("side-panel-block");
                     surveyAdmin.helpers.blurScreen("#firstPage");
 
+                    surveyAdmin.variables.imgBase64 = "";
+                    surveyAdmin.variables.fileName = "";
+                    $(".news-name").text('Nome da notícia');
+
 
                     /* var status =
                          '<div class="details-title"> Enquete publicada! </div> <div class="status-title"> ' +
@@ -1754,6 +1809,10 @@
             },
 
             helpers: {
+                getPageInfo: function () {
+                    surveyAdmin.variables.pageUrl = _spPageContextInfo.webAbsoluteUrl;
+                },
+
                 blurScreen: function (div) {
                     $(div).addClass("blur");
                 },
@@ -1863,9 +1922,11 @@
 
                         reader.onload = function (e) {
                             preview.setAttribute('src', e.target.result);
+                            surveyAdmin.variables.imgBase64 = e.target.result;
                         }
 
                         reader.readAsDataURL(input.files[0]);
+                        surveyAdmin.variables.fileName = input.files[0].name;
                     }
                 },
 
@@ -1890,18 +1951,19 @@
 
 
                 buildDropdownOptions: function (data) {
+                    console.log("-- buildDropdownOptions --")
                     data.Empresas.map(function (e) {
-                        $("#selectCompany").append('<option value="' + e.empresa + '">' + e.empresa +
+                        $("#select-empresa").append('<option value="' + e.empresa + '">' + e.empresa +
                             '</option>');
                     });
 
                     data.Unidades.map(function (u) {
-                        $("#selectUnit").append('<option value="' + u.unidade + '">' + u.unidade +
+                        $("#select-unidade").append('<option value="' + u.unidade + '">' + u.unidade +
                             '</option>');
                     });
 
                     data.Cargos.map(function (c) {
-                        $("#selectGroup").append('<option value="' + c.cargo + '">' + c.cargo +
+                        $("#select-grupo").append('<option value="' + c.cargo + '">' + c.cargo +
                             '</option>');
                     });
                 },
@@ -1921,19 +1983,19 @@
 
                     var html =
                         '<div class="row enquetes-select-panel">' +
-                            '<div class="col-md-4 text-center add-selecao-texto cursor-pointer">' +
-                                '<img src="/SitePages/src/Icones/icone-campo-texto-preto.png">' +
-                                '<p class="text-style text-select-panel">Campo de texto</p>' +
-                            '</div>' +
-                            '<div class="col-md-4 text-center add-selecao-multipla cursor-pointer">' +
-                                '<img src="/SitePages/src/Icones/icone-selecao-multipla-preto.png">' +
-                                '<p class="text-style text-select-panel">Seleção múltipla</p>' +
-                            '</div>' +
-                            '<div class="col-md-4 text-center add-selecao-unica cursor-pointer">' +
-                                '<img src="/SitePages/src/Icones/icone-selecao-unica-preto.png">' +
-                                '<p class="text-style text-select-panel">Seleção única</p>' +
-                            '</div>'
-                        '</div>';
+                        '<div class="col-md-4 text-center add-selecao-texto cursor-pointer">' +
+                        '<img src="/SitePages/src/Icones/icone-campo-texto-preto.png">' +
+                        '<p class="text-style text-select-panel">Campo de texto</p>' +
+                        '</div>' +
+                        '<div class="col-md-4 text-center add-selecao-multipla cursor-pointer">' +
+                        '<img src="/SitePages/src/Icones/icone-selecao-multipla-preto.png">' +
+                        '<p class="text-style text-select-panel">Seleção múltipla</p>' +
+                        '</div>' +
+                        '<div class="col-md-4 text-center add-selecao-unica cursor-pointer">' +
+                        '<img src="/SitePages/src/Icones/icone-selecao-unica-preto.png">' +
+                        '<p class="text-style text-select-panel">Seleção única</p>' +
+                        '</div>'
+                    '</div>';
 
                     $("#addSelectEnquete").attr("data-content", html);
 
@@ -1958,53 +2020,59 @@
 
                     var option = "";
 
-                    if(type == 'unica'){ option = 'Seleção de opção única'; }
-                    if(type == 'multipla'){ option = 'Seleção de múltiplas opções'; }
-                    if(type == 'texto'){ 
-                        option = 'Campo de texto'; 
+                    if (type == 'unica') {
+                        option = 'Seleção de opção única';
+                    }
+                    if (type == 'multipla') {
+                        option = 'Seleção de múltiplas opções';
+                    }
+                    if (type == 'texto') {
+                        option = 'Campo de texto';
 
                         $("#create-panel-selects").append(
-                        '<div class="content-subtitle">' + option +  '</div>' +
-                        '<div class="input__container container-perguntas">' +
-                            '<input type="hidden" class="tipo-pergunta" value="' + type  +'"   >' +
+                            '<div class="content-subtitle">' + option + '</div>' +
+                            '<div class="input__container container-perguntas">' +
+                            '<input type="hidden" class="tipo-pergunta" value="' + type + '"   >' +
                             '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
-                        '</div>'
+                            '</div>'
                         );
-                        
+
                         return;
                     }
 
                     $("#create-panel-selects").append(
-                        '<div class="content-subtitle">' + option +  '</div>' +
+                        '<div class="content-subtitle">' + option + '</div>' +
                         '<div class="input__container container-perguntas">' +
-                            '<input type="hidden" class="tipo-pergunta" value="' + type  +'"   >' +
-                            '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
-                            '<div class="opcoes-enquetes">' +
-                                '<div class="row">' +
-                                    '<div class="col-md-2">' + 
-                                        '<ol class="custom-list">' +
-                                            '<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"> </li>' +
-                                        '</ol>' +
-                                    '</div>' +
-                                    '<div class="col-md-2">' +
-                                       '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)">' +
-                                        '<img src="/SitePages/src/Icones/icone-novo-branco.png"> Adicionar nova opção' +
-                                    '</button>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
+                        '<input type="hidden" class="tipo-pergunta" value="' + type + '"   >' +
+                        '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
+                        '<div class="opcoes-enquetes">' +
+                        '<div class="row">' +
+                        '<div class="col-md-2">' +
+                        '<ol class="custom-list">' +
+                        '<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"> </li>' +
+                        '</ol>' +
+                        '</div>' +
+                        '<div class="col-md-2">' +
+                        '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)">' +
+                        '<img src="/SitePages/src/Icones/icone-novo-azul.png" height="15"> Adicionar nova opção' +
+                        '</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
                         '</div>'
                     );
                 },
 
-                addOption: function(btn) {
-                    $(btn).parent().parent().find('ol').append('<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"></li>');
+                addOption: function (btn) {
+                    $(btn).parent().parent().find('ol').append(
+                        '<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"></li>'
+                        );
                 },
 
-                buildQuestions: function(){
+                buildQuestions: function () {
                     var perguntas = $('.container-perguntas');
-                    
-                    perguntas.map(function(index, pergunta){
+
+                    perguntas.map(function (index, pergunta) {
 
                         var dadosPergunta = {
                             idPergunta: 0,
@@ -2020,11 +2088,11 @@
                         dadosPergunta.title = titulo;
                         dadosPergunta.type = tipoPergunta;
 
-                        opcoes.map(function(i, opcao){
+                        opcoes.map(function (i, opcao) {
                             var opt = $(opcao).val();
                             dadosPergunta.parameters.push(opt)
                         })
-                        
+
                         console.log(dadosPergunta);
                     })
 
