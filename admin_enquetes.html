@@ -114,6 +114,7 @@
 
         .row-news td {
             line-height: 48px !important;
+            vertical-align: middle !important;
         }
 
 
@@ -424,6 +425,13 @@
             font-family: Lato-Regular;
             font-size: 16px;
             color: #141428;
+            margin-bottom: 4px;
+        }
+
+        .text-style2 {
+            font-family: Lato-Regular;
+            font-size: 14px;
+            color: #0070b8;
             margin-bottom: 4px;
         }
 
@@ -893,6 +901,11 @@
         .panel-buttons {
             margin-top: 100px;
         }
+        
+        .nav-enquete-formularios {
+            margin-top: 20px;
+        }
+
     </style>
 
     <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -901,14 +914,8 @@
 </head>
 
 <body>
-    <SharePoint:SharePointForm runat="server" >
+    <SharePoint:SharePointForm runat="server">
     </SharePoint:SharePointForm>
-
-
-    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.viewSidePanel()">Detalhes</a>
-    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.editSidePanel()">Editar</a>
-    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.publishSidePanel()">Publicar</a>
-    <a class="btn btn-default" href="#" onclick="surveyAdmin.sidebar.publishSuccessSidePanel()">Sucesso</a>
 
     <div id="firstPage">
         <div class="news-page-header">
@@ -920,7 +927,11 @@
             </p>
         </div>
 
-        <div id="tablesNews" class="wrap-tables container-fluid" style="display: none;">
+        <div id="tablesNews" class="wrap-tables container-fluid" style="display: block;">
+            <!-- <div class="btn-group nav-enquete-formularios" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" onclick="surveyAdmin.helpers.loadEnquetes()">Enquetes</button>
+                <button type="button" class="btn btn-default" onclick="surveyAdmin.helpers.loadFormularios()">Formulários</button>
+            </div> -->
 
             <!-- NAVIGATION -->
             <ul class="nav-news-list nav-justified" role="tablist">
@@ -977,9 +988,7 @@
             </div>
         </div>
 
-        <div id="createNews" style="display: block;">
-
-
+        <div id="createNews" style="display: none;">
             <div class="create-panel">
                 <div id="openImageUrl" class="create-panel__container">
                     <img id="preview" class="create-panel__banner" src="/SitePages/src/Images/img_placeholder@3x.png"
@@ -1004,8 +1013,7 @@
                         </div>
                     </div>
                     <div class="create-panel__name">
-                        <p class="news-name panel-content" onclick="surveyAdmin.helpers.transformToInput(this)">Nome da
-                            enquete</p>
+                        <p class="news-name panel-content" onclick="surveyAdmin.helpers.transformToInput(this)">Nome da enquete</p>
                     </div>
                 </div>
             </div>
@@ -1013,6 +1021,14 @@
 
 
             <div class="create-panel-options">
+
+                <div>
+                    <label class="radio-inline content-subtitle"><input type="radio" name="tipo-criacao" value="Pesquisa" checked>Formulário</label>
+                    <label class="radio-inline content-subtitle"><input type="radio" name="tipo-criacao" value="Enquete">Enquete</label>
+                </div>
+
+                <br>
+
                 <div class="content-subtitle">Descrição da enquete</div>
                 <div class="input__container">
                     <input class="input custom-input" placeholder="Insira a descrição da enquete" type="text"
@@ -1036,8 +1052,6 @@
 
         <input type="file" id="filetag">
     </div>
-
-
 
     <div class="content navbar fixed-right ype" id="sidebar-shortcuts">
         <div id="view-panel" class="panel-container" style="display: none;">
@@ -1144,21 +1158,23 @@
                     <label for="nome-enquete" class="label-control label-panel">Nome da enquete</label>
                     <input class="custom-input" type="text" id="nome-enquete" name="nome-enquete"
                         placeholder="Digite o nome da enquete">
+
+                    <!-- <label for="nome-enquete" class="label-control label-panel">Descrição da enquete</label>
+                    <input class="custom-input" type="text" id="descricao-enquete" name="descricao-enquete" placeholder="Digite a descrição da enquete"> -->
                 </div>
 
-                <div id="agendarEnquete">
+                <!-- <div id="agendarEnquete">
                     <h2 class="subtitle-panel">Agende a sua enquete</h2>
 
                     <div class="form-group">
-                        <label for="data-publicacao" class="label-control label-panel">Data de publicação</label>
-                        <input class="custom-input date-picker" placeholder="Escolha a data de publicação" type="date" data-date-inline-picker="true" id="data-publicacao" name="data-publicacao">
+                        <label class="label-control label-panel">Data de publicação</label>
+                        <input class="custom-input" placeholder="" type="date" data-date-inline-picker="true" id="editDataPublicacao" name="editDataPublicacao">
                     </div>
 
                     <div class="form-group">
-                        <label for="data-expiracao" class="label-control label-panel">Data de expiração</label>
-                        <input class="custom-input date-picker" placeholder="Escolha a data de expiração" type="date" data-date-inline-picker="true" id="data-expiracao" name="data-expiracao">
+                        <label class="label-control label-panel">Data de expiração</label>
+                        <input class="custom-input" placeholder="" type="date" data-date-inline-picker="true" id="editDataExpiracao" name="editDataExpiracao">
                     </div>
-
                 </div>
 
                 <div id="apresentacaoEnquete">
@@ -1168,7 +1184,8 @@
                         <p class="label-panel">Publicar a enquete na homepage?</p>
                         <div class="checkbox">
                             <label class="label-panel" for="checkbox-substituir">
-                                <input class="" type="checkbox" id="checkbox-substituir" name="checkbox-substituir">Sim. Substituir a enquete atual por essa
+                                <input class="" type="checkbox" id="checkbox-substituir" name="checkbox-substituir">Sim.
+                                Substituir a enquete atual por essa
                                 enquete.</label>
                         </div>
                     </div>
@@ -1181,14 +1198,15 @@
                         </select>
                     </div>
 
-                </div>
+                </div> -->
 
-                
+
 
                 <div class="panel-buttons">
-                    <button type="button" class="btn button btn-publish-sidepanel"
+                    <button id="salvar-edicao" type="button" class="btn button btn-publish-sidepanel"
                         onclick="surveyAdmin.api.updateNews()">Salvar</button type="button">
-                    <button type="button" class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
+                    <button type="button" class="btn button"
+                        onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
                 </div>
             </form>
         </div>
@@ -1205,13 +1223,13 @@
                 <div id="agendarEnquete">
                     <div class="form-group wrap-panel-content">
                         <h2 class="subtitle-panel">Agende a sua enquete</h2>
-                        <label for="data-publicacao" class="label-control label-panel">Data de publicação</label>
-                        <input class="custom-input date-picker" placeholder="Escolha a data de publicação" type="date" data-date-inline-picker="true" id="data-publicacao" name="data-publicacao">
+                        <label class="label-control label-panel">Data de publicação</label>
+                        <input class="custom-input" placeholder="" type="date" data-date-inline-picker="true" id="dataPublicacao" name="dataPublicacao">
                     </div>
 
                     <div class="form-group wrap-panel-content">
-                        <label for="data-expiracao" class="label-control label-panel">Data de expiração</label>
-                        <input class="custom-input date-picker" placeholder="Escolha a data de expiração" type="date" data-date-inline-picker="true" id="data-expiracao" name="data-expiracao">
+                        <label class="label-control label-panel">Data de expiração</label>
+                        <input class="custom-input" placeholder="" type="date" data-date-inline-picker="true" id="dataExpiracao" name="dataExpiracao">
                     </div>
                 </div>
 
@@ -1265,29 +1283,41 @@
                 </div>
 
                 <div class="panel-buttons">
-                    <button  type="button" class="btn button btn-publish-sidepanel">Publicar</button>
-                    <button  type="button" class="btn button" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
+                    <button type="button" class="btn button btn-publish-sidepanel"
+                        id="publicar-registro" onclick="surveyAdmin.api.createNews()">Publicar</button>
+                    <button type="button" class="btn button"
+                        onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</button>
                 </div>
             </form>
 
         </div>
 
         <div id="success-panel" class="panel-container" style="display: none;">
+            <div id="sidebar">
+                <nav class="nav-panel">
+                    <div>
+                        <div class="col-md-3 icone-size">
+                            <a href="#" onclick="surveyAdmin.sidebar.closeSidePanel()">
+                                <img src="/SitePages/src/Icones/icone-fechar-preto.png">
+                                Fechar
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
             <div class="panel-header">
                 <h1 class="title-panel">Enquete publicada!</h1>
-                <p class="nome-enquete">Nome da Enquete</p>
-                <p class="text-bold-panel">Data de publicação</p>
+                <p class="nome-enquete"></p>
+                <p class="text-bold-panel data-publicacao"></p>
                 <p class="text-panel">Endereço do formulário</p>
                 <div class="square">link</div>
                 <div class="text-right">
 
-                    <button  type="button" class="btn button-blue">Copiar endereço</button>
+                    <button type="button" class="btn button-blue">Copiar endereço</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <button onclick="surveyAdmin.survey.buildQuestions()">Get Enquetes</button>
 
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -1306,20 +1336,20 @@
             surveyAdmin.helpers.refreshTables();
             surveyAdmin.helpers.uploadImage();
 
-            
+
 
             fileInput = $("#filetag");
             SP.SOD.executeFunc('sp.js', 'SP.ClientContext', registerClick);
 
-            // $('.date-picker').datepicker({
-            //     format: "dd/mm/yyyy",
-            //     language: "pt-BR",
-            //     minViewMode: 0,
-            //     orientation: 'auto',
-            //     startDate: '+1d',
-            //     autoclose: true,
-            //     daysOfWeekDisabled: ['0']
-            // });
+            $('.date-picker').datepicker({
+                format: "dd/mm/yyyy",
+                language: "pt-BR",
+                minViewMode: 0,
+                orientation: 'auto',
+                startDate: '+1d',
+                autoclose: true,
+                daysOfWeekDisabled: ['0']
+            });
 
             surveyAdmin.helpers.getPageInfo();
 
@@ -1329,27 +1359,45 @@
 
         function registerClick() {
             //Register File Upload Click Event   
-            $("#filetag").change(readFile);
+            $("#publicar-registro").click(readFile);
         }
         var arrayBuffer;
 
         function readFile() {
 
-            //Get File Input Control and read th file name  
-            var element = document.getElementById("filetag");
-            var file = element.files[0];
-            var parts = element.value.split("\\");
-            var fileName = parts[parts.length - 1];
+            var titleNews = $("#enqueteName").val();
+            var descNews = $("#newsDesc").val();
+            var companyNews = $("#select-empresa").val();
+            var groupNews = $("#select-grupo").val();
+            var unitNews = $("#select-unidade").val();
+            var publishDate = $("#dataPublicacao").val();
+            var expiDate = $("#dataExpiracao").val();
+            var tipo = $("input[name='tipo-criacao']:checked").val();
+            surveyAdmin.variables.publishDate = publishDate;
+            var fileName = surveyAdmin.variables.fileName;
+            var perguntas = surveyAdmin.survey.getPerguntas();
 
-            //Read File contents using file reader  
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                uploadFile(e.target.result, fileName);
+            if (titleNews && descNews && companyNews && groupNews && unitNews && publishDate && expiDate) {
+
+                //Get File Input Control and read th file name  
+                var element = document.getElementById("filetag");
+                var file = element.files[0];
+
+                if(!file) return;
+
+                var parts = element.value.split("\\");
+                var fileName = parts[parts.length - 1];
+
+                //Read File contents using file reader  
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadFile(e.target.result, fileName);
+                }
+                reader.onerror = function (e) {
+                    alert(e.target.error);
+                }
+                reader.readAsArrayBuffer(file);
             }
-            reader.onerror = function (e) {
-                alert(e.target.error);
-            }
-            reader.readAsArrayBuffer(file);
         }
         var attachmentFiles;
 
@@ -1399,14 +1447,8 @@
                 nameEnquete: "Nome da enquete",
                 descNews: "",
                 publishDate: "",
-
-                // sidebar
-                expiredPublic: "31/07/1999",
-                createDate: "12/12/1999",
-
-
-                Perguntas: [],
-
+                expiredPublic: "",
+                createDate: "",
                 imgBase64: "",
                 pageUrl: ""
             },
@@ -1417,7 +1459,7 @@
                  */
                 getAllNews: function (table, novasNoticias) {
                     $.ajax({
-                        url: '/Servicos/YPE.WebService.asmx/getNoticias?cargo=&novas=' + novasNoticias,
+                        url: '/Servicos/YPE.WebService.asmx/getPesquisaEnqueteAdmin?idPesquisa=0',
                         cache: false,
                         type: 'GET',
                         async: false,
@@ -1430,7 +1472,7 @@
                                     "<tr class='row-news'>" +
                                     "<td class='news__name'> <input type='hidden' value='" +
                                     JSON.stringify(news) + "'/>" +
-                                    news.Titulo + '</td>' +
+                                    news.Nome + '</td>' +
                                     "<td>" + surveyAdmin.helpers.buildDropdownByStatus(news
                                         .Status) + "</td>" +
                                     "<td class='news___status " + surveyAdmin.helpers
@@ -1441,6 +1483,9 @@
                                     "<td>" + surveyAdmin.helpers.formatDate(news
                                         .UltimaModificacao) + "</td>" +
                                     "<td class='news__group'>" + news.Grupo + "</td>" +
+                                    "<td class='news__link'>" +
+                                    "<img src='/SitePages/src/Icones/icone-link-azul-1.png' height='24'>" +
+                                    "</td>" +
                                     "</tr>";
 
                             });
@@ -1456,7 +1501,7 @@
                 deleteNews: function () {
                     if (surveyAdmin.variables.idNews !== "") {
                         $.ajax({
-                            url: '/Servicos/YPE.WebService.asmx/getNoticiaDel?idNoticia=' + surveyAdmin
+                            url: '/Servicos/YPE.WebService.asmx/getPesqEnqDel?idPesquisa=' + surveyAdmin
                                 .variables.idNews,
                             cache: false,
                             type: 'GET',
@@ -1492,44 +1537,67 @@
                  * É necessário passar um json como parâmetro
                  */
                 createNews: function () {
-                    var titleNews = $("#newsName").val();
+                    var titleNews = $("#enqueteName").val();
                     var descNews = $("#newsDesc").val();
-                    var companyNews = $("#selectCompany").val();
-                    var groupNews = $("#selectGroup").val();
-                    var unitNews = $("#selectUnit").val();
-                    var publishDate = $("#date").val();
-                    var img = surveyAdmin.variables.imgBase64;
-                    var fileName = surveyAdmin.variables.fileName
+                    var companyNews = $("#select-empresa").val();
+                    var groupNews = $("#select-grupo").val();
+                    var unitNews = $("#select-unidade").val();
+                    var publishDate = $("#dataPublicacao").val();
+                    var expiDate = $("#dataExpiracao").val();
+                    var tipo = $("input[name='tipo-criacao']:checked").val();
 
-                    if (titleNews && companyNews && groupNews && unitNews && img && fileName) {
+                    surveyAdmin.variables.publishDate = publishDate;
+
+                    // var img = surveyAdmin.variables.imgBase64;
+                    var fileName = surveyAdmin.variables.fileName;
+
+                    var perguntas = surveyAdmin.survey.getPerguntas();
+
+                    if (titleNews && descNews && companyNews && groupNews && unitNews && publishDate && expiDate) {
                         var newsData = {
-                            Id: "0", // 0 = criar nova enquete
-                            Titulo: titleNews,
+                            idPesquisa: "0", // 0 = criar nova enquete
+                            Tipo: tipo,
+                            Nome: titleNews,
                             Descricao: descNews,
-                            Status: 'Publicado',
-                            CriadoPor: "",
-                            ModificadoPor: "",
-                            UltimaModificacao: surveyAdmin.helpers.formatDate2(publishDate),
+                            "Modificado Por": "",
+                            Modificado: "2020-01-26",
+                            LinkFormulario: "",
                             Grupo: groupNews,
-                            Publicacao: surveyAdmin.helpers.formatDate2(publishDate),
+                            PublicadoEm: surveyAdmin.helpers.formatDate2(publishDate),
+                            ExpiraEm:  surveyAdmin.helpers.formatDate2(expiDate),
+                            DataCriacao:  surveyAdmin.helpers.formatDate2(publishDate),
+                            EmailResposta: "rhype@ype.com.br",
                             Empresa: companyNews,
                             Unidade: unitNews,
-                            NoticiaNova: true,
-                            ImageURL: encodeURIComponent(("/" + surveyAdmin.variables.folderName + "/" +
-                                surveyAdmin.variables.fileName).trim())
+                            Stautus: 'Publicado',
+                            Perguntas: perguntas,
+                            PesqEnqNova: "true"
+
+                            // CriadoPor: "",
+                            // UltimaModificacao: surveyAdmin.helpers.formatDate2(publishDate),
+                            // Grupo: groupNews,
+
+                            // NoticiaNova: true,
+                            // ImageURL: encodeURIComponent(("/" + surveyAdmin.variables.folderName + "/" +
+                            //     surveyAdmin.variables.fileName).trim()),
                         };
 
+                        console.log(newsData)
+                        console.log(JSON.stringify(newsData))
+
                         $.ajax({
-                            url: '/Servicos/YPE.WebService.asmx/postNoticia?noticia=' +
+                            url: '/Servicos/YPE.WebService.asmx/postPesquisaEnquete?pesquisaenquete=' +
                                 JSON.stringify(newsData),
                             cache: false,
                             type: 'GET',
+
                             success: function (data) {
                                 surveyAdmin.sidebar.publishSuccessSidePanel();
                                 surveyAdmin.helpers.refreshTables();
                             },
                             error: function (e) {
                                 console.log(e);
+                                alert("Ocorreu um erro ao publicar a enquete.");
                             }
                         });
                     } else {
@@ -1542,20 +1610,22 @@
                     var jsonNews = surveyAdmin.variables.jsonNews;
 
                     if (jsonNews) {
-                        var newTitle = $("#edit-title").val();
-                        jsonNews.Titulo = newTitle;
+                        var newTitle = $("#nome-enquete").val()
+                        jsonNews.Nome = newTitle;
+                        $("#salvar-edicao").prop("disabled", true);
 
                         $.ajax({
-                            url: '/Servicos/YPE.WebService.asmx/postNoticia?noticia=' + JSON.stringify(
-                                jsonNews),
+                            url: '/Servicos/YPE.WebService.asmx/postPesquisaEnquete?pesquisaenquete=' + JSON.stringify(jsonNews),
                             cache: false,
                             type: 'GET',
                             success: function (data) {
-                                surveyAdmin.sidebar.closeSidePanel();
+                                surveyAdmin.sidebar.publishSuccessSidePanel();
                                 surveyAdmin.helpers.refreshTables();
+                                $("#salvar-edicao").prop("disabled", false);
                             },
                             error: function (e) {
                                 console.log(e);
+                                $("#salvar-edicao").prop("disabled", false);
                             }
                         });
                     }
@@ -1597,6 +1667,10 @@
                             console.log(e);
                         }
                     });
+                },
+
+                getEnqueteContador: function() {
+
                 }
             },
 
@@ -1608,55 +1682,9 @@
                     $("#sidebar-shortcuts").addClass("side-panel-block");
                     surveyAdmin.helpers.blurScreen("#firstPage");
 
-                    $("#nome-enquete").val(surveyAdmin.variables.jsonNews.Titulo)
+                    $("#nome-enquete").val(surveyAdmin.variables.jsonNews.Nome);
 
-                    /* $("#edit-panel .status-title").text(surveyAdmin.variables.jsonNews.Titulo);
-                     $("#edit-panel .date-style").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.Publicacao));
-                     $("#edit-panel .expi-date").text(surveyAdmin.variables.expiredPublic);
-                     $("#edit-panel .text-style").text(surveyAdmin.variables.jsonNews.CriadoPor);
-                     $("#edit-panel .create-date").text(surveyAdmin.variables.createDate);
-                     $("#edit-panel .modified-by").text(surveyAdmin.variables.jsonNews.ModificadoPor);
-
-                     var status = '<div class="details-title"> Editar </div> <div class="status-title">' +
-                         surveyAdmin.variables.jsonNews.Titulo +
-                         ' </div>' +
-                         '<form class="form-container">' +
-                         '<div class="input__container">' +
-                         'enqueteclass="input" placeholder="Editar nome da enquete" type="text" id="edit-title" name="edit-title">' +
-                         '</div>' +
-
-                         '<div class="input__container">' +
-                         '<textarea class="input" placeholder="Editar descrição da enquete" type="text" id="edit-title" name="edit-title">' +
-                         surveyAdmin.variables.jsonNews.Descricao + '</textarea>' +
-                         '</div>' +
-
-                         '<div class="content-title">Status da enquete</div>' +
-                         '<div class="status-public">Publicada</div>' +
-                         '<div class="date-style">' + surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews
-                             .Publicacao) + '</div>' +
-                         '<div class="status-expi">Expira em</div>' +
-                         '<div class="date-style">' + surveyAdmin.variables.expiredPublic + '</div>';
-
-                     var info = '<div class="content-title">Informações da enquete</div>' +
-                         '<div class="content-subtitle">Criado por</div>' + '<div class="text-style">' +
-                         surveyAdmin.variables.jsonNews.CriadoPor + '</div>' + '<div class="date-style">' +
-                         surveyAdmin
-                         .variables.createDate + '</div>' +
-                         '<div class="content-subtitle">Modificado por</div>' + '<div class="text-style">' +
-                         surveyAdmin.variables.jsonNews.ModificadoPor + '</div>' + '<div class="date-style">' +
-                         surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.UltimaModificacao) + '</div>';
-
-                     var aud = '<div class="content-title">Audiência </div>' +
-                         '<div class="content-subtitle"> Nome da empresa </div>' +
-                         '<div class="text-style">' + surveyAdmin.variables.jsonNews.Empresa + '</div>' +
-                         '<div class="content-subtitle">Nome da unidade</div>' + '<div class="text-style">' +
-                         surveyAdmin.variables.jsonNews.Unidade + '</div>' +
-                         '<div class="content-subtitle" >Nome do grupo</div>' +
-                         '<div class="text-style">Equipe: ' + surveyAdmin.variables.jsonNews.Grupo + '</div>' +
-                         '<div class="container-panel-buttons"><a class="btn btn-publish-sidepanel" onclick="surveyAdmin.api.updateNews()">Publicar</a><a class="btn" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</a></div>';
-
-
-                     document.querySelector('.content').innerHTML = status + info + aud;*/
+                    
                 },
 
                 viewSidePanel: function () {
@@ -1666,53 +1694,28 @@
                     $("#sidebar-shortcuts").addClass("side-panel-block");
                     surveyAdmin.helpers.blurScreen("#firstPage");
 
-                    $("#view-panel .nome-enquete").text(surveyAdmin.variables.jsonNews.Titulo);
+                    $("#view-panel .nome-enquete").text(surveyAdmin.variables.jsonNews.Nome);
                     $("#view-panel .data-publicacao").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables
-                        .jsonNews.Publicacao));
-                    $("#view-panel .expira-em").text(surveyAdmin.variables.expiredPublic);
+                        .jsonNews.PublicadoEm));
+                    $("#view-panel .expira-em").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables
+                        .jsonNews.ExpiraEm));
                     $("#view-panel .criada-por").text(surveyAdmin.variables.jsonNews.CriadoPor);
                     $("#view-panel .data-criacao").text(surveyAdmin.variables.createDate);
                     $("#view-panel .modificada-por").text(surveyAdmin.variables.jsonNews.ModificadoPor);
                     $("#view-panel .data-modificacao").text(surveyAdmin.helpers.formatDate(surveyAdmin.variables
                         .jsonNews.UltimaModificacao));
-                    $("#view-panel .numero-respostas").text(surveyAdmin.variables.jsonNews.NumeroRespostas);
+                    $("#view-panel .numero-respostas").text(surveyAdmin.variables.jsonNews.NumeroRespostas ||
+                    0);
                     $("#view-panel .nome-empresa").text(surveyAdmin.variables.jsonNews.Empresa);
                     $("#view-panel .nome-unidade").text(surveyAdmin.variables.jsonNews.Unidade);
                     $("#view-panel .nome-grupo").text(surveyAdmin.variables.jsonNews.Grupo);
 
-                    // var status = '<div class="details-title"> Detalhes </div> <div class="status-title">' +
-                    //     surveyAdmin.variables.jsonNews.Titulo + '</div>' +
-
-                    //     '<div class="content-title">' + surveyAdmin.variables.jsonNews.Status + '</div>' +
-                    //     '<div class="status-public">Publicada</div>' +
-                    //     '<div class="date-style">' + surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews
-                    //         .Publicacao) + '</div>' +
-                    //     '<div class="status-expi">Expira em</div>' +
-                    //     '<div class="date-style">' + surveyAdmin.variables.expiredPublic + '</div>';
-
-                    // var info = '<div class="content-title">Informações da enquete</div>' +
-                    //     '<div class="content-subtitle">Criado por</div>' + '<div class="text-style">' +
-                    //     surveyAdmin.variables.jsonNews.CriadoPor + '</div>' + '<div class="date-style">' +
-                    //     surveyAdmin
-                    //     .variables.createDate + '</div>' +
-                    //     '<div class="content-subtitle">Modificado por</div>' + '<div class="text-style">' +
-                    //     surveyAdmin.variables.jsonNews.ModificadoPor + '</div>' + '<div class="date-style">' +
-                    //     surveyAdmin.helpers.formatDate(surveyAdmin.variables.jsonNews.UltimaModificacao) + '</div>';
-
-                    // var aud = '<div class="content-title">Audiência </div>' +
-                    //     '<div class="content-subtitle"> Nome da empresa </div>' +
-                    //     '<div class="text-style">' + surveyAdmin.variables.jsonNews.Empresa + '</div>' +
-                    //     '<div class="content-subtitle">Nome da unidade</div>' + '<div class="text-style">' +
-                    //     surveyAdmin.variables.jsonNews.Unidade + '</div>' +
-                    //     '<div class="content-subtitle" >Nome do grupo</div>' +
-                    //     '<div class="text-style">Equipe: ' + surveyAdmin.variables.jsonNews.Grupo + '</div>'
-
-                    // document.querySelector('.content').innerHTML = status + info + aud;
                 },
 
                 publishSidePanel: function () {
                     console.log("-- publishSidePanel --")
                     surveyAdmin.api.getEmpresasUnidadesCargos();
+
                     $(".panel-container").hide();
                     $("#publish-panel").show();
                     $(".container-submenu").removeClass("container-submenu");
@@ -1721,57 +1724,13 @@
 
                     $("#publish-panel #enqueteName").val(surveyAdmin.variables.nameEnquete);
                     $("#publish-panel .nome-enquete").text(surveyAdmin.variables.nameEnquete);
-
-
-                    // var status =
-                    //     '<div class="details-title"> Publicar enquete </div> <div class="status-title"> ' +
-                    //     surveyAdmin.variables.nameEnquete + ' </div>';
-
-                    // var date = '<form class="form-container">' +
-
-                    //     'enqueteclass="input" type="hidden" id="newsName" name="newsName" value="' + surveyAdmin
-                    //     .variables.nameEnquete + '">' +
-
-                    //     '<div class="content-title">Agende sua enquete</div>' +
-                    //     '<div class="content-subtitle">Data de publicação</div>' +
-                    //     '<div class="input__container">' +
-                    //     'enqueteclass="input" placeholder="" type="date" data-date-inline-picker="true" id="date" name="date">' +
-                    //     '</div>'
-                    // var status_1 =
-                    //     '<div class="content-title">Ajude as pessoas a encontrarem sua enquete</div>';
-                    // var info_1 = '<div class="content-subtitle">Adicione tags na sua enquete</div>';
-                    // var date_1 = '<form class="form-container">' + '<div class="input__container">' +
-                    //     'enqueteclass="input" placeholder="Digite o nome da tag" type="text" id="tags" name="tags">' +
-                    //     '</div>'
-                    // var status_2 = '<div class="content-title">Defina a audiência</div>';
-                    // var info_2 = '<div class="content-subtitle">Empresa</div>';
-                    // var date_2 = '<form class="form-container">' + '<div class="input__container">' +
-                    //     '<span class="chevron"></span>' +
-                    //     '<select class="select-css" name="selectCompany" id="selectCompany">' +
-                    //     '<option value="">Escolha a empresa</option>' +
-
-                    //     '</select>' + '</div>'
-                    // var info_3 = '<div class="content-subtitle">Unidade</div>';
-                    // var date_3 = '<form class="form-container">' + '<div class="input__container">' +
-                    //     '<span class="chevron"></span>' +
-                    //     '<select class="select-css" name="selectUnit" id="selectUnit">' +
-                    //     '<option value="">Escolha a a unidade</option>' +
-                    //     '</select>' + '</div>'
-                    // var info_4 = '<div class="content-subtitle">Grupo</div>';
-                    // var date_4 = '<form class="form-container">' + '<div class="input__container">' +
-                    //     '<span class="chevron"></span>' +
-                    //     '<select class="select-css" name="selectGroup" id="selectGroup">' +
-                    //     '<option value="">Escolha o grupo</option>' +
-                    //     '</select>' + '</div>'
-                    // var button =
-                    //     '<div class="container-panel-buttons"><a class="btn btn-publish-sidepanel" onclick="surveyAdmin.api.createNews()">Publicar</a><a class="btn" onclick="surveyAdmin.sidebar.closeSidePanel()">Cancelar</a></div>';
-                    // document.querySelector('.content').innerHTML = status + date + status_1 + info_1 +
-                    //     date_1 + status_2 + info_2 + date_2 + info_3 + date_3 + info_4 + date_4 + button;
+                    
+                    $("#enqueteName").val(surveyAdmin.variables.nameEnquete);
                 },
 
                 closeSidePanel: function () {
-          
-
+                    console.log('close panel ')
+                    
                     var element = document.querySelector('#sidebar-shortcuts');
                     element.classList.remove("side-panel-block");
                     var element1 = document.querySelector('#firstPage');
@@ -1789,26 +1748,28 @@
                     $("#sidebar-shortcuts").addClass("side-panel-block");
                     surveyAdmin.helpers.blurScreen("#firstPage");
 
+                    $("#success-panel .nome-enquete").text(surveyAdmin.variables.nameEnquete)
+                    $("#success-panel .data-publicacao").text( surveyAdmin.variables.publishDate)
+
                     surveyAdmin.variables.imgBase64 = "";
                     surveyAdmin.variables.fileName = "";
-                    $(".news-name").text('Nome da notícia');
+                    $(".news-name").text('Nome da enquete');
+                    $("#create-panel-selects").empty();
+                    $("#newsDesc").val("");
+                    $("#preview").attr("src", "/SitePages/src/Images/img_placeholder@3x.png");
 
-
-                    /* var status =
-                         '<div class="details-title"> Enquete publicada! </div> <div class="status-title"> ' +
-                         surveyAdmin.variables.nameEnquete + ' </div>' +
-                         '<div class="content-title-date">Data de publicação: ' + date + '</div>';
-                     var info = '<div class="content-subtitle">Endereço da enquete</div>';
-                     var link = '<div class="copy-link">link</div>';
-                     var button =
-                         '<br><button onclick="surveyAdmin.sidebar.closeSidePanel()" id="close" class="btn">Fechar</button>'
-                     document.querySelector('.content').innerHTML = status + info + link + button;
-
-                     $(".news-name").text('Nome da enquete');*/
                 }
             },
 
             helpers: {
+                // loadEnquetes: function() {
+                //     console.log("... load enquetes")
+                // },
+
+                // loadFormularios: function(){
+                //     console.log("... load enquetes")
+                // },
+
                 getPageInfo: function () {
                     surveyAdmin.variables.pageUrl = _spPageContextInfo.webAbsoluteUrl;
                 },
@@ -1839,6 +1800,7 @@
                             '<li><a class="archiveCurrentNews" href="#" data-toggle="modal" data-target="#archivedModal">Arquivar</a></li>' :
                             '<li><a class="deleteCurrentNews" href="#" onclick="surveyAdmin.api.deleteNews()">Deletar</a></li>'
                         ) +
+                        '<li><a class="deleteCurrentNews" href="#" onclick="surveyAdmin.api.deleteNews()">Deletar</a></li>'
                         '<li><a href="#" onclick="surveyAdmin.sidebar.viewSidePanel()">Detalhes</a></li>' +
                         '<li><a href="#">Alterar permissão</a></li>' +
                         '</ul>' +
@@ -1848,7 +1810,7 @@
                     $(".news__more").click(function () {
                         surveyAdmin.variables.jsonNews = JSON.parse($(this).parent().parent().parent()
                             .find('input').val());
-                        surveyAdmin.variables.idNews = surveyAdmin.variables.jsonNews.Id;
+                        surveyAdmin.variables.idNews = surveyAdmin.variables.jsonNews.idPesquisa;
                     });
                 },
 
@@ -2012,7 +1974,6 @@
 
                     });
                 }
-
             },
 
             survey: {
@@ -2030,7 +1991,7 @@
                         option = 'Campo de texto';
 
                         $("#create-panel-selects").append(
-                            '<div class="content-subtitle">' + option + '</div>' +
+                            '<div class="content-subtitle text-style2">' + option + '</div>' +
                             '<div class="input__container container-perguntas">' +
                             '<input type="hidden" class="tipo-pergunta" value="' + type + '"   >' +
                             '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
@@ -2041,7 +2002,7 @@
                     }
 
                     $("#create-panel-selects").append(
-                        '<div class="content-subtitle">' + option + '</div>' +
+                        '<div class="content-subtitle text-style2">' + option + '</div>' +
                         '<div class="input__container container-perguntas">' +
                         '<input type="hidden" class="tipo-pergunta" value="' + type + '"   >' +
                         '<input class="input custom-input titulo-pergunta" placeholder="Insira o título do campo" type="text">' +
@@ -2054,7 +2015,7 @@
                         '</div>' +
                         '<div class="col-md-2">' +
                         '<button class="btn btn-link" onclick="surveyAdmin.survey.addOption(this)">' +
-                        '<img src="/SitePages/src/Icones/icone-novo-azul.png" height="15"> Adicionar nova opção' +
+                        '<img src="/SitePages/src/Icones/icone-novo-azul.png" height="12"> Adicionar nova opção' +
                         '</button>' +
                         '</div>' +
                         '</div>' +
@@ -2066,11 +2027,12 @@
                 addOption: function (btn) {
                     $(btn).parent().parent().find('ol').append(
                         '<li style="margin: 0 0 10px 0;"><input type="text" class="input-options" placeholder="Insira a opção"></li>'
-                        );
+                    );
                 },
 
-                buildQuestions: function () {
+                getPerguntas: function () {
                     var perguntas = $('.container-perguntas');
+                    var arrPerguntas = [];
 
                     perguntas.map(function (index, pergunta) {
 
@@ -2093,9 +2055,14 @@
                             dadosPergunta.parameters.push(opt)
                         })
 
-                        console.log(dadosPergunta);
-                    })
+                        if(dadosPergunta.parameters.length == 0) {
+                            dadosPergunta.parameters = null;
+                        }
 
+                        arrPerguntas.push(dadosPergunta);
+                    });
+
+                    return arrPerguntas;
                 }
             }
         }
